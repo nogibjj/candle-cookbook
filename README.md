@@ -15,8 +15,9 @@ Democratize access to state of the art AI models.
 
 🌱 **Sustainability** ~ optimize efficiency to minimize our carbon footprint.
 
+<hr>
 
-## Developer/Contributor Setup
+## ⚙️ Developer/Contributor Setup
 
 **Configure Cookbook Template**
 
@@ -34,8 +35,16 @@ make serve
 make cookbook
 ```
 
-## References
+<hr>
 
-* [mdBook Official Docs](https://rust-lang.github.io/mdBook/)
-* [mdBook Automated Deployment](https://github.com/rust-lang/mdBook/wiki/Automated-Deployment)
-* [peaceiris Github Pages Action](https://github.com/peaceiris/actions-gh-pages)
+## ✅ ToDos
+
+- [ ] Validate minimum GPU requirements -- CUDA >= X.X, cuDNN >= X.X
+
+
+<hr>
+
+## 🕯️Candle Docs
+
+* [Official Huggingface Candle repo](https://github.com/huggingface/candle)
+* [Official Candle User Guide](https://huggingface.github.io/candle/guide/installation.html)

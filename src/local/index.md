@@ -1,9 +1,6 @@
+
 # Local Builds
 
-Build and deploy locally
+**Getting Started**
 
-## Requirements
-
-**For CPU only models**
-
-**For CUDA, cuDNN enabled models**
+- [Hello, Candle!](local/hello-candle.md) ~ start here

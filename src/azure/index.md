@@ -1,8 +1,11 @@
 # Azure Builds
 
-Build and deploy with Azure
-
-
 ## Requirements
 
-**Azure Account**
+* Azure account
+
+## Recipes
+
+**Getting Started**
+
+- [Hello, Azure!](azure/hello-azure.md) ~ Hello, Candle! on Azure

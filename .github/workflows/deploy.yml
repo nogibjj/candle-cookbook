@@ -29,3 +29,9 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./book
+
+
+# References:
+# * [mdBook Official Docs](https://rust-lang.github.io/mdBook/)
+# * [mdBook Automated Deployment](https://github.com/rust-lang/mdBook/wiki/Automated-Deployment)
+# * [peaceiris Github Pages Action](https://github.com/peaceiris/actions-gh-pages)

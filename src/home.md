@@ -16,38 +16,31 @@ Democratize access to state of the art AI models.
 
 ## 🍳 The Recipes:
 
-***Disclaimer***: 
-
-*AWS/Azure builds may incur charges. Please consider resource costs and useage rates accordingly. We are not liable or responsible for any charges incurred from the utilization of these services.* 
-
 * [Local Builds](#local-builds)
 * [AWS Builds](#aws-builds)
 * [Azure Builds](#azure-builds)
 
-<hr>
+**Minimum requirements for GPU targetted binaries**
 
-### [Local Builds](local/index.md)
+For CUDA enabled builds using `--features cuda`:
+* NVIDIA GPU with [CUDA compute capabilitity](https://developer.nvidia.com/cuda-gpus) > X.X
+* [CUDA Toolkit](https://developer.nvidia.com/cuda-downloads) >= X.X
 
-- [Hello, Candle!](local/hello-candle.md) ~ start here
+For cuDNN optimized builds using `--features cuda, cudnn`:
+* NVIDIA GPU with [CUDA compute capabilitity](https://developer.nvidia.com/cuda-gpus) > X.X
+* [CUDA Toolkit](https://developer.nvidia.com/cuda-downloads) >= X.X
+* [cuDNN](https://developer.nvidia.com/cudnn) >= X.X
 
-<hr>
+Verify CUDA/cuDNN:
+```
+# Verify CUDA
+nvidia-smi --query-gpu=compute_cap --format=csv
+nvcc --version
 
-### [AWS Builds](aws/index.md)
+# Verify cuDNN
+whereis cudnn.h
+```
 
-**Getting Started**
+***Disclaimer***: 
 
-- [Hello, EC2!](aws/hello-aws.md) ~ Hello, Candle! on AWS EC2
-- [S3 Binaries](aws/s3-binaries.md) ~ build model binaries on EC2 and store on S3
-
-**CI/CD Pipelines**
-
-- [CodePipeline + Jenkins Build](aws/jenkins-pipeline.md) ~ automated binary builds on EC2 with Jenkins + CodePipeline
-
-
-<hr>
-
-### [Azure Builds](azure/index.md)
-
-**Getting Started**
-
-- [Hello, Azure!](azure/hello-azure.md) ~ Hello, Candle! on Azure
+*AWS/Azure builds may incur charges. It is your responsibility to understand the associated resource costs and useage rates. We are not liable for any charges incurred from the utilization of these services.* 
