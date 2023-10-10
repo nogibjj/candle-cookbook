@@ -44,3 +44,7 @@ whereis cudnn.h
 ***Disclaimer***: 
 
 *AWS/Azure builds may incur charges. It is your responsibility to understand the associated resource costs and useage rates. We are not liable for any charges incurred from the utilization of these services.* 
+
+## Gotchas & Build Issues
+
+Refer [here](./gotchas.md) for known gotchas and build issues

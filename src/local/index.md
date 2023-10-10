@@ -3,4 +3,4 @@
 
 **Getting Started**
 
-- [Hello, Candle!](local/hello-candle.md) ~ start here
+- [Hello, Candle!](./hello-candle.md) ~ start here

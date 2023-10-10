@@ -8,4 +8,4 @@
 
 **Getting Started**
 
-- [Hello, Azure!](azure/hello-azure.md) ~ Hello, Candle! on Azure
+- [Hello, Azure!](./hello-azure.md) ~ Hello, Candle! on Azure

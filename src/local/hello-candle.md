@@ -1,11 +1,9 @@
 # Hello, Candle!
 
-## Install Rust
-
-See [rustup](https://rustup.rs/)
+## Install Rust via [rustup](https://rustup.rs/)
 
 ```
-# Install
+# see https://rustup.rs/
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Set path
@@ -35,16 +33,5 @@ eg. cargo build --features cuda,cudnn --example falcon --release
 # Run
 cd target/release/examples
 ./<model_name> --prompt <your_prompt>
-./falcon --prompt "who invented the lightbulb"
-```
-
-## Gotchas
-
-**[Stable Diffusion](https://github.com/huggingface/candle/tree/main/candle-examples/examples/stable-diffusion)**
-
-Requires a GPU with more than 8GB of memory, as a fallback the CPU version can be used with the --cpu flag but is much slower. Alternatively, reducing the height and width with the --height and --width flag is likely to reduce memory usage significantly.
-
-```
-# Build for CPU **NOT RECOMMENDED**
-cargo build --cpu --example stable-diffusion --release
+eg ./falcon --prompt "who invented the lightbulb"
 ```
