@@ -1,5 +1,7 @@
 # Candle Cookbook
 
+![GH Pages Deploy](https://github.com/nogibjj/candle-cookbook/actions/workflows/deploy.yml/badge.svg)
+
 ## 🚀 The Mission:
 
 Democratize access to state of the art AI models.
