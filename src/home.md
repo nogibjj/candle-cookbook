@@ -45,6 +45,8 @@ whereis cudnn.h
 
 *AWS/Azure builds may incur charges. It is your responsibility to understand the associated resource costs and useage rates. We are not liable for any charges incurred from the utilization of these services.* 
 
-## Gotchas & Build Issues
 
-Refer [here](./gotchas.md) for known gotchas and build issues
+## 🕯️Official Candle Docs
+
+* [Huggingface Candle repo](https://github.com/huggingface/candle)
+* [Candle User Guide](https://huggingface.github.io/candle/guide/installation.html)

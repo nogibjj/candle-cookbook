@@ -40,6 +40,7 @@ make cookbook
 ## ✅ ToDos
 
 - [ ] Validate minimum GPU requirements -- CUDA >= X.X, cuDNN >= X.X
+- [ ] Model specific recipes for CPU/GPU builds
 
 
 <hr>

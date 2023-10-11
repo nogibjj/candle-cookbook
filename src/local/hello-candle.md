@@ -19,19 +19,17 @@ cd candle
 
 ## Build & Run Binaries
 
-See available example models and docs [here](https://github.com/huggingface/candle/tree/main/candle-examples/examples)
+See all Candle example models [here](https://github.com/huggingface/candle/tree/main/candle-examples/examples)
 
+*Example:*
 ```
-# Build for CPU
-cargo build --example <model_name> --release
-eg. cargo build --example falcon --release
+# CPU build
+cargo build --example falcon --release
 
-# Build for CUDA + cuDNN
-cargo build --features cuda,cudnn --example <model_name> --release
-eg. cargo build --features cuda,cudnn --example falcon --release
+# CUDA + cuDNN build
+cargo build --example falcon --features cuda,cudnn --release
 
-# Run
+# Run binary
 cd target/release/examples
-./<model_name> --prompt <your_prompt>
-eg ./falcon --prompt "who invented the lightbulb"
+./falcon --prompt "who invented the lightbulb"
 ```

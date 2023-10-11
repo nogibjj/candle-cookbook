@@ -8,8 +8,7 @@
 
 **Getting Started**
 
-- [Hello, Candle on EC2!](./hello-aws.md) ~ Hello, Candle! on AWS EC2
-- [S3 Binaries](./s3-binaries.md) ~ build model binaries on EC2 and store on S3
+- [Hello, Candle on EC2!](./hello-aws.md) ~ Hello, Candle! on AWS EC2 + S3
 
 **CI/CD Pipelines**
 
