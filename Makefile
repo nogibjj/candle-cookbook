@@ -1,9 +1,3 @@
-format:
-	cargo fmt --quiet
-
-lint:
-	cargo clippy --quiet
-
 install:
 	cargo install mdbook
 

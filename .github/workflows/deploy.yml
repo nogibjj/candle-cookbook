@@ -5,6 +5,8 @@ on:
     branches:
       - main
   pull_request:
+  # Allow mannually trigger 
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -20,8 +22,9 @@ jobs:
         uses: peaceiris/actions-mdbook@v1
         with:
           mdbook-version: 'latest'
-
-      - run: mdbook build
+      
+      - name: Build Cookbook
+      - run: make cookbook
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
