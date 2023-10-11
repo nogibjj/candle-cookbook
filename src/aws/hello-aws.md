@@ -1,4 +1,9 @@
-# Hello, Candle on EC2!
+# Hello, Candle on AWS!
+
+## Create Candle-EC2 IAM User
+
+From AWS IAM Console >> Users >> Create User "Candle-EC2" >> Attach Policies Directly:
+* `AmazonS3FullAccess`
 
 ## Launch GPU Enabled AWS EC2 Compute Instance
 
@@ -17,9 +22,11 @@
 
 1. Install [Remote - SSH](https://code.visualstudio.com/docs/remote/ssh) from VSCode Extensions
 2. Add new SSH Connection
-3. From EC2 landing page >> Connect >> SSH client >> Copy command to VSCode
+3. From EC2 landing page >> Connect >> SSH client >> Copy commands to VSCode
   ```
-  ssh -i "candle-key.pem" ubuntu@ec2-##-##.us-east-21.compute.amazonaws.com
+  # NB: edit path to .pem file as needed
+  chmod 400 ~/.ssh/candle-key.pem
+  ssh -i "~/.ssh/candle-key.pem" ubuntu@ec2-##-##.us-east-1.compute.amazonaws.com
   ```
 4. Update .config file and validate format as follows
 
@@ -29,8 +36,11 @@
     IdentityFile ~/.ssh/candle-key.pem
     User ubuntu
   ```
-5. Confirm instance type (Linux) and fingerprint (Yes) 
+5. Confirm remote host platform (Linux) and fingerprint (Continue) 
 6. Launch terminal on remote host
+
+*Gotchas*
+* If you stop and restart your EC2 instance, you will need to update the IP address in your .config file
 
 ## Verify EC2 CUDA/cuDNN
 
@@ -45,7 +55,7 @@ whereis cudnn.h
 
 ```
 # see https://rustup.rs/
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable
 
 # Set path
 source "$HOME/.cargo/env"
@@ -60,6 +70,17 @@ sudo ./aws/install
 
 # Check install
 aws --version
+```
+
+## Configure Candle-EC2 IAM User
+
+1. IAM Console >> Users >> Candle-EC2 >> Security Credentials >> Create Access Key "EC2-CLI"
+2. From EC2 SSH terminal
+```
+aws configure
+# Copy-Paste Candle-EC2 Access Key ID
+# Copy-Paste Candle-EC2 Secret Access Key
+# Default region name: us-east-1
 ```
 
 ## Configure [Candle](https://github.com/huggingface/candle)
@@ -88,12 +109,12 @@ cd target/release/examples
 
 ## Store Binaries in S3
 
-1. Create IAM User "Candle-EC2" with `S3FullAccess` policy >> Create access key
-2. From SSH terminal `aws configure` >> Add Candle-EC2 keys
-3. Create S3 Bucket i.e `my-candle-binaries`
-4. Copy model binary to S3 
+From AWS S3 Console >> Create S3 Bucket i.e `my-candle-binaries`
 
 ```
+# Copy model binary from EC2 to S3 
 cd target/release/examples
 aws s3 cp quantized s3://my-candle-binaries
 ```
+
+**IMPORTANT! Terminate any AWS resources to prevent unexpected charges.** 

@@ -6,7 +6,7 @@
     - [Hello, Candle!](local/hello-candle.md)
 
 - [AWS Builds](aws/index.md)
-    - [Hello, Candle on EC2!](aws/hello-aws.md)
+    - [Hello, Candle on AWS!](aws/hello-aws.md)
     - [CodePipeline + Jenkins Build](aws/jenkins-pipeline.md)
 
 - [Azure Builds](azure/index.md)
