@@ -8,7 +8,7 @@
 
 **Getting Started**
 
-- [Hello, Candle on EC2!](./hello-aws.md) ~ Hello, Candle! on AWS EC2 + S3
+- [Hello, Candle on AWS!](./hello-aws.md) ~ Hello, Candle! on AWS EC2 + S3
 
 **CI/CD Pipelines**
 

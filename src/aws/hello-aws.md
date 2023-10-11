@@ -1,4 +1,4 @@
-# Hello, Candle on EC2!
+# Hello, Candle on AWS!
 
 ## Launch GPU Enabled AWS EC2 Compute Instance
 
