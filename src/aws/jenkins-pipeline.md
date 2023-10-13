@@ -94,6 +94,7 @@ rm -rf /var/lib/jenkins
 9. Project Name: CandlePipeline **NB: Must match Jenkins Build Project!** >> Next
 10. Skip deploy stage >> Skip
 11. Review >> Create pipeline
+12. The first build will run automatically. Subsequent builds can be triggered using "Release change" button.
 
 ## Download Binaries
 

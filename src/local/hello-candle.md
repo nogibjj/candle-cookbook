@@ -3,8 +3,7 @@
 ## Install Rust via [rustup](https://rustup.rs/)
 
 ```
-# see https://rustup.rs/
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable
 
 # Set path
 source "$HOME/.cargo/env"
