@@ -1,4 +1,3 @@
-<!-- WiP @athletedecoded -->
 # Automate Binary Builds with Jenkins + CodePipeline
 
 First complete the [Hello, Candle! on AWS](./hello-aws.md) tutorial to setup your EC2 Instance, S3 Bucket and Candle-EC2 IAM User.
@@ -96,13 +95,12 @@ rm -rf /var/lib/jenkins
 10. Skip deploy stage >> Skip
 11. Review >> Create pipeline
 
-**IMPORTANT! Terminate any AWS resources to prevent unexpected charges.** 
-
 ## Download Binaries
 
 1. AWS S3 Console >> my-candle-binaries >> CandlePipeline/ >> BuildArtif/
 2. Order by "Last modified" >> Download latest zip
 
+**IMPORTANT! Terminate any AWS resources to prevent unexpected charges.** 
 
 ## References
 * [Install Jenkins to EC2](https://www.jenkins.io/doc/book/installing/linux/#debianubuntu)
