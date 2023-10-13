@@ -219,8 +219,7 @@ whereis cudnn.h
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hello-candle"><a class="header" href="#hello-candle">Hello, Candle!</a></h1>
 <h2 id="install-rust-via-rustup"><a class="header" href="#install-rust-via-rustup">Install Rust via <a href="https://rustup.rs/">rustup</a></a></h2>
-<pre><code># see https://rustup.rs/
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+<pre><code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable
 
 # Set path
 source &quot;$HOME/.cargo/env&quot;
@@ -309,8 +308,7 @@ nvcc --version
 whereis cudnn.h
 </code></pre>
 <h2 id="install-rust-via-rustup-1"><a class="header" href="#install-rust-via-rustup-1">Install Rust via <a href="https://rustup.rs/">rustup</a></a></h2>
-<pre><code># see https://rustup.rs/
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable
+<pre><code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable
 
 # Set path
 source &quot;$HOME/.cargo/env&quot;
@@ -446,6 +444,7 @@ cargo build --example falcon --features cuda,cudnn --release
 <li>Project Name: CandlePipeline <strong>NB: Must match Jenkins Build Project!</strong> &gt;&gt; Next</li>
 <li>Skip deploy stage &gt;&gt; Skip</li>
 <li>Review &gt;&gt; Create pipeline</li>
+<li>The first build will run automatically. Subsequent builds can be triggered using &quot;Release change&quot; button.</li>
 </ol>
 <h2 id="download-binaries"><a class="header" href="#download-binaries">Download Binaries</a></h2>
 <ol>
