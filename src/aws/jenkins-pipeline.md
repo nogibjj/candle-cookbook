@@ -1,6 +1,10 @@
 # Automate Binary Builds with Jenkins + CodePipeline
 
-First complete the [Hello, Candle! on AWS](./hello-aws.md) tutorial to setup your EC2 Instance, S3 Bucket and Candle-EC2 IAM User.
+## Prerequisites
+
+* Complete the [Hello, Candle! on AWS](./hello-aws.md) tutorial to setup your EC2 Instance, S3 Bucket and Candle-EC2 IAM User.
+* A [Github Account](https://github.com/join)
+* An [AWS Account](https://portal.aws.amazon.com/billing/signup)
 
 ## Add Permissions to Candle-EC2 IAM Role
 
@@ -22,12 +26,16 @@ First complete the [Hello, Candle! on AWS](./hello-aws.md) tutorial to setup you
 **Install Jenkins on EC2**
 
 ```
+# Get Jenkins files
 curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
   /usr/share/keyrings/jenkins-keyring.asc > /dev/null
 echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
   https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
-sudo apt-get update
+
+# Install Jenkins
+sudo apt-get update \
+  &&
 sudo apt-get install jenkins
 
 # Check install
@@ -62,10 +70,10 @@ rm -rf /var/lib/jenkins
 1. From Jenkins dashboard >> New Item >> Enter item name: "CandlePipeline" >> Select "Freestyle project" >> OK
 2. General >> Check "Execute concurrent builds if necessary"
 3. Source Code Management >> Check AWS CodePipeline
-4. From AWS IAM >> Users >> Candle-EC2 >> create second access key "Jenkins-Pipeline" >> Add as Jenkins Build AWS Config
-5. Select Category "Build"
-6. Provider "Jenkins"
-7. Build Triggers >> Check "Poll SCM" >> Schedule * * * * *
+4. From AWS IAM >> Users >> Candle-EC2 >> create second access key "Jenkins" >> Add to Jenkins Build AWS Config
+5. Category >> Build
+6. Provider: Jenkins
+7. Build Triggers >> Check "Poll SCM" >> Schedule: * * * * *
 8. Build Steps >> Add build step >> Execute shell >> Add command:
   ```
   ls
@@ -86,8 +94,8 @@ rm -rf /var/lib/jenkins
 1. AWS CodePipeline Console >> Create pipeline >> Pipeline name: "CandlePipeline" >> Check "New service role"
 2. Advanced Settings >> Custom location >> Bucket: "my-candle-binaries" >> Default AWS Managed Key >> Next
 3. Source provider >> Github (Version 2) >> Follow instructions to create Github Connection
-4. Repository name: huggingface/candle >> Branch Name: main >> Default Output Artifact
-5. Uncheck "Start the pipeline on source code change" >> Next
+4. Uncheck "Start the pipeline on source code change"
+5. Repository name: huggingface/candle >> Branch Name: main >> Output artifact format:CodePipeline Default >> Next
 6. Build Provider >> Add Jenkins
 7. Provider Name: Jenkins **NB: Must match Jenkins Build Project!**
 8. Server URL: http://<EC2_public_ipv4_address>:8080/

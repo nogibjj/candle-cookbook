@@ -1,5 +1,10 @@
 # Hello, Candle on AWS!
 
+## Prerequisites
+
+* A [Github Account](https://github.com/join)
+* An [AWS Account](https://portal.aws.amazon.com/billing/signup)
+
 ## Create Candle-EC2 IAM User
 
 From AWS IAM Console >> Users >> Create User "Candle-EC2" >> Attach Policies Directly:
