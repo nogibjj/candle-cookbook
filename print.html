@@ -256,6 +256,11 @@ cd target/release/examples
 <li><a href="aws/./jenkins-pipeline.html">CodePipeline + Jenkins Build</a> ~ automated binary builds on EC2 with Jenkins + CodePipeline</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hello-candle-on-aws"><a class="header" href="#hello-candle-on-aws">Hello, Candle on AWS!</a></h1>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
+<ul>
+<li>A <a href="https://github.com/join">Github Account</a></li>
+<li>An <a href="https://portal.aws.amazon.com/billing/signup">AWS Account</a></li>
+</ul>
 <h2 id="create-candle-ec2-iam-user"><a class="header" href="#create-candle-ec2-iam-user">Create Candle-EC2 IAM User</a></h2>
 <p>From AWS IAM Console &gt;&gt; Users &gt;&gt; Create User &quot;Candle-EC2&quot; &gt;&gt; Attach Policies Directly:</p>
 <ul>
@@ -356,7 +361,12 @@ aws s3 cp quantized s3://my-candle-binaries
 </code></pre>
 <p><strong>IMPORTANT! Terminate any AWS resources to prevent unexpected charges.</strong> </p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="automate-binary-builds-with-jenkins--codepipeline"><a class="header" href="#automate-binary-builds-with-jenkins--codepipeline">Automate Binary Builds with Jenkins + CodePipeline</a></h1>
-<p>First complete the <a href="aws/./hello-aws.html">Hello, Candle! on AWS</a> tutorial to setup your EC2 Instance, S3 Bucket and Candle-EC2 IAM User.</p>
+<h2 id="prerequisites-1"><a class="header" href="#prerequisites-1">Prerequisites</a></h2>
+<ul>
+<li>Complete the <a href="aws/./hello-aws.html">Hello, Candle! on AWS</a> tutorial to setup your EC2 Instance, S3 Bucket and Candle-EC2 IAM User.</li>
+<li>A <a href="https://github.com/join">Github Account</a></li>
+<li>An <a href="https://portal.aws.amazon.com/billing/signup">AWS Account</a></li>
+</ul>
 <h2 id="add-permissions-to-candle-ec2-iam-role"><a class="header" href="#add-permissions-to-candle-ec2-iam-role">Add Permissions to Candle-EC2 IAM Role</a></h2>
 <ol>
 <li>From AWS IAM Console &gt;&gt; Users &gt;&gt; Candle-EC2 &gt;&gt; Add permissions &gt;&gt; Attach existing policies directly</li>
@@ -374,12 +384,16 @@ aws s3 cp quantized s3://my-candle-binaries
 <li>Click EC2 instance &gt;&gt; Actions &gt;&gt; Networking &gt;&gt; Change Security Groups &gt;&gt; Select &quot;WebConnectEC2&quot; &gt;&gt; Save</li>
 </ol>
 <p><strong>Install Jenkins on EC2</strong></p>
-<pre><code>curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+<pre><code># Get Jenkins files
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
   /usr/share/keyrings/jenkins-keyring.asc &gt; /dev/null
 echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
   https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
   /etc/apt/sources.list.d/jenkins.list &gt; /dev/null
-sudo apt-get update
+
+# Install Jenkins
+sudo apt-get update \
+  &amp;&amp;
 sudo apt-get install jenkins
 
 # Check install
@@ -410,10 +424,10 @@ rm -rf /var/lib/jenkins
 <li>From Jenkins dashboard &gt;&gt; New Item &gt;&gt; Enter item name: &quot;CandlePipeline&quot; &gt;&gt; Select &quot;Freestyle project&quot; &gt;&gt; OK</li>
 <li>General &gt;&gt; Check &quot;Execute concurrent builds if necessary&quot;</li>
 <li>Source Code Management &gt;&gt; Check AWS CodePipeline</li>
-<li>From AWS IAM &gt;&gt; Users &gt;&gt; Candle-EC2 &gt;&gt; create second access key &quot;Jenkins-Pipeline&quot; &gt;&gt; Add as Jenkins Build AWS Config</li>
-<li>Select Category &quot;Build&quot;</li>
-<li>Provider &quot;Jenkins&quot;</li>
-<li>Build Triggers &gt;&gt; Check &quot;Poll SCM&quot; &gt;&gt; Schedule * * * * *</li>
+<li>From AWS IAM &gt;&gt; Users &gt;&gt; Candle-EC2 &gt;&gt; create second access key &quot;Jenkins&quot; &gt;&gt; Add to Jenkins Build AWS Config</li>
+<li>Category &gt;&gt; Build</li>
+<li>Provider: Jenkins</li>
+<li>Build Triggers &gt;&gt; Check &quot;Poll SCM&quot; &gt;&gt; Schedule: * * * * *</li>
 <li>Build Steps &gt;&gt; Add build step &gt;&gt; Execute shell &gt;&gt; Add command:</li>
 </ol>
 <pre><code>ls
@@ -436,8 +450,8 @@ cargo build --example falcon --features cuda,cudnn --release
 <li>AWS CodePipeline Console &gt;&gt; Create pipeline &gt;&gt; Pipeline name: &quot;CandlePipeline&quot; &gt;&gt; Check &quot;New service role&quot;</li>
 <li>Advanced Settings &gt;&gt; Custom location &gt;&gt; Bucket: &quot;my-candle-binaries&quot; &gt;&gt; Default AWS Managed Key &gt;&gt; Next</li>
 <li>Source provider &gt;&gt; Github (Version 2) &gt;&gt; Follow instructions to create Github Connection</li>
-<li>Repository name: huggingface/candle &gt;&gt; Branch Name: main &gt;&gt; Default Output Artifact</li>
-<li>Uncheck &quot;Start the pipeline on source code change&quot; &gt;&gt; Next</li>
+<li>Uncheck &quot;Start the pipeline on source code change&quot;</li>
+<li>Repository name: huggingface/candle &gt;&gt; Branch Name: main &gt;&gt; Output artifact format:CodePipeline Default &gt;&gt; Next</li>
 <li>Build Provider &gt;&gt; Add Jenkins</li>
 <li>Provider Name: Jenkins <strong>NB: Must match Jenkins Build Project!</strong></li>
 <li>Server URL: http://&lt;EC2_public_ipv4_address&gt;:8080/</li>
