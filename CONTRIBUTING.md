@@ -4,11 +4,14 @@ By contributing you agree to the terms of the Candle Cookbook [License](./LICENS
 
 We welcome contributions from anyone who aligns with Our Mission and Our Principles -- all you need is a [GitHub Account](https://github.com/join).
 
-Before starting please complete the Contributor Checklist:
+**Contributor Checklist:**
 
 - [ ] Review and adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md)
-- [ ] If you're creating a recipe, start from the [recipe template](./recipe.md)
-- [ ] If you're submitting a pull request, follow the [PR Requirements](PR_REQS.md)
+- [ ] For new recipes: start from the [recipe template](./recipe.md)
+- [ ] For new recipes: add your recipe and link/to/recipe to the relevant `source/index.md` file
+- [ ] For pull requests: follow the [PR Requirements](PR_REQS.md)
+- [ ] To include assets, create a folder `assets/source/recipe/`
+- [ ] Images must be in .png format and added to `assets/source/recipe/`
 
 <br>
 

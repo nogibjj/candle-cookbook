@@ -19,7 +19,7 @@
 2. Create Security Group >> Name: "WebConnectEC2" >> Description: "Allow SSH and HTTP traffic to EC2"
 3. Add the following inbound rules. NB: Source = "Anywhere" is not recommended for production environments.
 
-![image](../assets/aws-ec2-security-group.png)  
+![image](../assets/aws/jenkins-pipeline/aws-ec2-security-group.png)  
 
 4. Click EC2 instance >> Actions >> Networking >> Change Security Groups >> Select "WebConnectEC2" >> Save
 
