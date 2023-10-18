@@ -22,7 +22,7 @@ Democratize access to state of the art AI models.
 
 We welcome contributions from anyone who aligns with Our Mission and Our Principles.
 
-Check out the [Contributor Guidelines](./CONTRIBUTING.md) to get involved.
+Get started by reading our [Code of Conduct](./CODE_OF_CONDUCT.md) then check out the [Contributor Guidelines](./CONTRIBUTING.md).
 
 <hr>
 
