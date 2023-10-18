@@ -2,7 +2,7 @@
 
 By contributing you agree to the terms of the Candle Cookbook [License](./LICENSE) and [Code of Conduct](./CODE_OF_CONDUCT.md).
 
-We welcome contributions from anyone who aligns with Our Mission and Our Principles! All you need is a [GitHub Account](https://github.com/join).
+We welcome contributions from anyone who aligns with Our Mission and Our Principles -- all you need is a [GitHub Account](https://github.com/join).
 
 Before starting please complete the Contributor Checklist:
 
@@ -10,8 +10,9 @@ Before starting please complete the Contributor Checklist:
 - [ ] If you're creating a recipe, start from the [recipe template](./recipe.md)
 - [ ] If you're submitting a pull request, follow the [PR Requirements](PR_REQS.md)
 
+<br>
 
-Here some contribution ideas depending on your level of experience and familiarity with git, Rust and Candle.
+Here are some contribution ideas depending on your level of experience and familiarity with git, Rust and Candle.
 
 ### Junior Chef
 
