@@ -4,22 +4,37 @@
 
 Cooking live @ [https://nogibjj.github.io/candle-cookbook/](https://nogibjj.github.io/candle-cookbook/)
 
-## 🚀 The Mission:
+## 🚀 Our Mission:
 
 Democratize access to state of the art AI models.
 
-
-## 🌏 The Principles: 
+## 🌟 Our Principles: 
 
 🫱🏾‍🫲🏼 **Trust** ~ ethically sourced data and end-to-end transparency.
 
 🔒 **Privacy** ~ secure, on-device inference without data sharing.
 
-🌱 **Sustainability** ~ optimize efficiency to minimize our carbon footprint.
+🌏 **Sustainability** ~ optimize efficiency to minimize our carbon footprint.
 
 <hr>
 
-## ⚙️ Developer/Contributor Setup
+## 🌱 Contributing
+
+We welcome contributions from anyone who aligns with Our Mission and Our Principles.
+
+Check out the [Contributor Guidelines](./CONTRIBUTING.md) to get involved.
+
+<hr>
+
+## 🕯️Candle Docs
+
+* [Official Huggingface Candle repo](https://github.com/huggingface/candle)
+* [Official Candle User Guide](https://huggingface.github.io/candle/guide/installation.html)
+
+
+<hr>
+
+## ⚙️ Cookbook Developer Setup
 
 **Configure Cookbook Template**
 
@@ -39,15 +54,6 @@ make cookbook
 
 <hr>
 
-## ✅ ToDos
+## ⭐ Our Team: 
 
-- [ ] Validate minimum GPU requirements -- CUDA >= X.X, cuDNN >= X.X
-- [ ] Model specific recipes for CPU/GPU builds
-
-
-<hr>
-
-## 🕯️Candle Docs
-
-* [Official Huggingface Candle repo](https://github.com/huggingface/candle)
-* [Official Candle User Guide](https://huggingface.github.io/candle/guide/installation.html)
+Get to know our [Community Leaders](./TEAM.md)
