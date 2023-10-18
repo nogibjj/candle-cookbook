@@ -8,7 +8,7 @@ Cooking live @ [https://nogibjj.github.io/candle-cookbook/](https://nogibjj.gith
 
 Democratize access to state of the art AI models.
 
-## 🌟 Our Principles: 
+## ⭐ Our Principles: 
 
 🫱🏾‍🫲🏼 **Trust** ~ ethically sourced data and end-to-end transparency.
 
@@ -54,6 +54,6 @@ make cookbook
 
 <hr>
 
-## ⭐ Our Team: 
+## 🧑‍🍳 Our Team: 
 
 Get to know our [Community Leaders](./TEAM.md)
