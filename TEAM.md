@@ -1,4 +1,4 @@
-# ⭐ Our Team
+# 🧑‍🍳 Our Team
 
 ## Community Leaders
 
