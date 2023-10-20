@@ -26,31 +26,11 @@ Get started by reading our [Code of Conduct](./CODE_OF_CONDUCT.md) then check ou
 
 <hr>
 
-## 🕯️Candle Docs
+## 🕯️Official Candle Docs
 
-* [Official Huggingface Candle repo](https://github.com/huggingface/candle)
-* [Official Candle User Guide](https://huggingface.github.io/candle/guide/installation.html)
+* [Huggingface Candle repo](https://github.com/huggingface/candle)
+* [Candle User Guide](https://huggingface.github.io/candle/guide/installation.html)
 
-
-<hr>
-
-## ⚙️ Cookbook Developer Setup
-
-**Configure Cookbook Template**
-
-```
-# fork/clone repo
-git clone https://github.com/nogibjj/candle-cookbook
-
-# install mdbook
-make install
-
-# serve/preview cookbook at localhost:8000
-make serve
-
-# build cookbook
-make cookbook
-```
 
 <hr>
 

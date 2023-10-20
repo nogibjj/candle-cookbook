@@ -7,11 +7,10 @@ We welcome contributions from anyone who aligns with Our Mission and Our Princip
 **Contributor Checklist:**
 
 - [ ] Review and adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md)
-- [ ] For new recipes: start from the [recipe template](./recipe.md)
-- [ ] For new recipes: add your recipe and link/to/recipe to the relevant `source/index.md` file
+- [ ] Install Candle Cookbook according to the [Developer Setup](./DEV_ENV.md) guide
+- [ ] For new recipes: use the [recipe template](./recipe.md)
+- [ ] For new recipes: add your recipe to the relevant `source/index.md` file
 - [ ] For pull requests: follow the [PR Requirements](PR_REQS.md)
-- [ ] To include assets, create a folder `assets/source/recipe/`
-- [ ] Images must be in .png format and added to `assets/source/recipe/`
 
 <br>
 
