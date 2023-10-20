@@ -181,9 +181,9 @@
 <p>🌱 <strong>Sustainability</strong> ~ optimize efficiency to minimize our carbon footprint.</p>
 <h2 id="-the-recipes"><a class="header" href="#-the-recipes">🍳 The Recipes:</a></h2>
 <ul>
-<li><a href="home.html#local-builds">Local Builds</a></li>
-<li><a href="home.html#aws-builds">AWS Builds</a></li>
-<li><a href="home.html#azure-builds">Azure Builds</a></li>
+<li><a href="./local/index.html">Local Builds</a></li>
+<li><a href="./aws/index.html">AWS Builds</a></li>
+<li><a href="./azure/index.html">Azure Builds</a></li>
 </ul>
 <p><strong>Minimum requirements for GPU targetted binaries</strong></p>
 <p>For CUDA enabled builds using <code>--features cuda</code>:</p>
@@ -213,6 +213,28 @@ whereis cudnn.h
 <li><a href="https://huggingface.github.io/candle/guide/installation.html">Candle User Guide</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="local-builds"><a class="header" href="#local-builds">Local Builds</a></h1>
+<h2 id="requirements"><a class="header" href="#requirements">Requirements</a></h2>
+<p><strong>Minimum requirements for GPU targetted binaries</strong></p>
+<p>For CUDA enabled builds using <code>--features cuda</code>:</p>
+<ul>
+<li>NVIDIA GPU with <a href="https://developer.nvidia.com/cuda-gpus">CUDA compute capabilitity</a> &gt; X.X</li>
+<li><a href="https://developer.nvidia.com/cuda-downloads">CUDA Toolkit</a> &gt;= X.X</li>
+</ul>
+<p>For cuDNN optimized builds using <code>--features cuda, cudnn</code>:</p>
+<ul>
+<li>NVIDIA GPU with <a href="https://developer.nvidia.com/cuda-gpus">CUDA compute capabilitity</a> &gt; X.X</li>
+<li><a href="https://developer.nvidia.com/cuda-downloads">CUDA Toolkit</a> &gt;= X.X</li>
+<li><a href="https://developer.nvidia.com/cudnn">cuDNN</a> &gt;= X.X</li>
+</ul>
+<p>Verify CUDA/cuDNN:</p>
+<pre><code># Verify CUDA
+nvidia-smi --query-gpu=compute_cap --format=csv
+nvcc --version
+
+# Verify cuDNN
+whereis cudnn.h
+</code></pre>
+<h2 id="recipes"><a class="header" href="#recipes">Recipes</a></h2>
 <p><strong>Getting Started</strong></p>
 <ul>
 <li><a href="local/./hello-candle.html">Hello, Candle!</a> ~ start here</li>
@@ -242,11 +264,12 @@ cd target/release/examples
 ./falcon --prompt &quot;who invented the lightbulb&quot;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="aws-builds"><a class="header" href="#aws-builds">AWS Builds</a></h1>
-<h2 id="requirements"><a class="header" href="#requirements">Requirements</a></h2>
+<h2 id="requirements-1"><a class="header" href="#requirements-1">Requirements</a></h2>
 <ul>
-<li>AWS account</li>
+<li>A <a href="https://github.com/join">Github Account</a></li>
+<li>An <a href="https://portal.aws.amazon.com/billing/signup">AWS Account</a></li>
 </ul>
-<h2 id="recipes"><a class="header" href="#recipes">Recipes</a></h2>
+<h2 id="recipes-1"><a class="header" href="#recipes-1">Recipes</a></h2>
 <p><strong>Getting Started</strong></p>
 <ul>
 <li><a href="aws/./hello-aws.html">Hello, Candle on AWS!</a> ~ Hello, Candle! on AWS EC2 + S3</li>
@@ -473,11 +496,12 @@ cargo build --example falcon --features cuda,cudnn --release
 <li><a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-four-stage-pipeline.html#tutorials-four-stage-pipeline-prerequisites-jenkins-iam-role/">Jenkins + AWS Codepipeline</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="azure-builds"><a class="header" href="#azure-builds">Azure Builds</a></h1>
-<h2 id="requirements-1"><a class="header" href="#requirements-1">Requirements</a></h2>
+<h2 id="requirements-2"><a class="header" href="#requirements-2">Requirements</a></h2>
 <ul>
-<li>Azure account</li>
+<li>A <a href="https://github.com/join">Github Account</a></li>
+<li>An <a href="https://azure.microsoft.com/en-us/free">Azure Account</a></li>
 </ul>
-<h2 id="recipes-1"><a class="header" href="#recipes-1">Recipes</a></h2>
+<h2 id="recipes-2"><a class="header" href="#recipes-2">Recipes</a></h2>
 <p><strong>Getting Started</strong></p>
 <ul>
 <li><a href="azure/./hello-azure.html">Hello, Azure!</a> ~ Hello, Candle! on Azure</li>

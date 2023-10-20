@@ -172,6 +172,28 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="local-builds"><a class="header" href="#local-builds">Local Builds</a></h1>
+<h2 id="requirements"><a class="header" href="#requirements">Requirements</a></h2>
+<p><strong>Minimum requirements for GPU targetted binaries</strong></p>
+<p>For CUDA enabled builds using <code>--features cuda</code>:</p>
+<ul>
+<li>NVIDIA GPU with <a href="https://developer.nvidia.com/cuda-gpus">CUDA compute capabilitity</a> &gt; X.X</li>
+<li><a href="https://developer.nvidia.com/cuda-downloads">CUDA Toolkit</a> &gt;= X.X</li>
+</ul>
+<p>For cuDNN optimized builds using <code>--features cuda, cudnn</code>:</p>
+<ul>
+<li>NVIDIA GPU with <a href="https://developer.nvidia.com/cuda-gpus">CUDA compute capabilitity</a> &gt; X.X</li>
+<li><a href="https://developer.nvidia.com/cuda-downloads">CUDA Toolkit</a> &gt;= X.X</li>
+<li><a href="https://developer.nvidia.com/cudnn">cuDNN</a> &gt;= X.X</li>
+</ul>
+<p>Verify CUDA/cuDNN:</p>
+<pre><code># Verify CUDA
+nvidia-smi --query-gpu=compute_cap --format=csv
+nvcc --version
+
+# Verify cuDNN
+whereis cudnn.h
+</code></pre>
+<h2 id="recipes"><a class="header" href="#recipes">Recipes</a></h2>
 <p><strong>Getting Started</strong></p>
 <ul>
 <li><a href="./hello-candle.html">Hello, Candle!</a> ~ start here</li>
