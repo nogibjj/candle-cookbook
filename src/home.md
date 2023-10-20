@@ -16,9 +16,9 @@ Democratize access to state of the art AI models.
 
 ## 🍳 The Recipes:
 
-* [Local Builds](#local-builds)
-* [AWS Builds](#aws-builds)
-* [Azure Builds](#azure-builds)
+* [Local Builds](./local/index.md)
+* [AWS Builds](./aws/index.md)
+* [Azure Builds](./azure/index.md)
 
 **Minimum requirements for GPU targetted binaries**
 

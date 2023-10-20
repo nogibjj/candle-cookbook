@@ -2,7 +2,8 @@
 
 ## Requirements
 
-* Azure account
+* A [Github Account](https://github.com/join)
+* An [Azure Account](https://azure.microsoft.com/en-us/free)
 
 ## Recipes
 
