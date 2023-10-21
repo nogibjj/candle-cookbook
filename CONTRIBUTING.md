@@ -33,7 +33,7 @@ Here are some contribution ideas depending on your level of experience and famil
 
 * **Create a recipe** -- create your own recipe using the [recipe template](./templates/recipe.md) then test, validate and submit your recipe by completeing a pull request according to the [PR Requirements](./docs/PR_REQS.md).
 
-* **Review a PR** -- pick [an open PR](https://github.com/nogibjj/candle-cookbook/pulls?=qis:pr%20is:open). First ensure the PR check has passed, then test and validate any code additions. Submit your review outcome in the comments section according to the traffic-light system. `@` tag one of the community leaders in your comment to finalise the merge.
-    * 🔴 If the PR check has failed or there are major flaws write "NOT APPROVED" including your reasons
+* **Review a PR** -- pick [an open PR](https://github.com/nogibjj/candle-cookbook/pulls?=qis:pr%20is:open). First ensure the PR has passed the `deploy` CI/CD status check. Next test and validate any code additions. Submit your review outcome in the comments section according to the traffic-light system. `@` tag one of the community leaders in your comment to finalise the merge.
+    * 🔴 If the PR status check has failed or there are major flaws write "NOT APPROVED" including your reasons
     * 🟡 If the PR needs minor changes (i.e. formatting/clarity) write "CHANGES REQUIRED" including your suggestions
     * 🟢 If the PR is merge ready write "VALIDATED & APPROVED" 
