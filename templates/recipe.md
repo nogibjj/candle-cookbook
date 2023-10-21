@@ -1,4 +1,4 @@
-# RECIPE TITLE
+# Recipe Title
 
 ## Prerequisites
 
