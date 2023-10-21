@@ -13,7 +13,7 @@
 Your recipe branch should follow the format `<build-platform>-<prefix>-<desc>`
 
 Where:
-* `build-platform` is one of: 'aws', 'azure', 'local'
+* `build-platform` is one of: 'aws', 'azure', 'local', 'global'
 * `prefix` is one of: 
     * 'fix' -- for improvements to an existing recipe
     * 'new' -- for a new recipe
@@ -23,7 +23,7 @@ Where:
 * `desc` is a meaningful identifier (such as recipe name) in kebab-case
 
 ```
-git fetch upstream
+git fetch upstream main
 git checkout -b <build-platform>-<prefix>-<desc> -t upstream/main
 ```
 
@@ -82,3 +82,7 @@ From your forked candle-cookbook repo >> Pull requests >> New pull request >> Se
 base repository: nogibjj/candle-cookbook, base: main <-- head repository: your-username/candle-cookbook, comapre: your-branch
 
 You will be asked to complete the [Pull Request Checklist](../.github/pull_request_template.md)
+
+**⚠️ IMPORTANT:** Once you have submitted a PR do not push any further changes. If you wish to edit -- delete the PR and submit a new one.
+
+**❌ NEVER:** git push origin branch --force
