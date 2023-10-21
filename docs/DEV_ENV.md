@@ -16,7 +16,7 @@ git clone https://github.com/nogibjj/candle-cookbook
 
 ```
 git remote add upstream https://github.com/nogibjj/candle-cookbook.git
-git fetch upstream
+git fetch upstream main
 ```
 
 **Install Cookbook**
