@@ -6,11 +6,12 @@ We welcome contributions from anyone who aligns with Our Mission and Our Princip
 
 **Contributor Checklist:**
 
-- [ ] Review and adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md)
-- [ ] Install Candle Cookbook according to the [Developer Setup](./DEV_ENV.md) guide
-- [ ] For new recipes: use the [recipe template](./recipe.md)
-- [ ] For new recipes: add your recipe to the relevant `source/index.md` file
-- [ ] For pull requests: follow the [PR Requirements](PR_REQS.md)
+- [ ] Read and adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md)
+- [ ] Install Candle Cookbook according to the [Developer Setup](./docs/DEV_ENV.md) guide
+- [ ] For recipes: follow the formatting conventions in the [recipe template](./templates/recipe.md)
+- [ ] Ensure `make cookbook` passes before submitting any changes
+- [ ] Review Cookbook changes and test hyperlinks by running `make serve`
+- [ ] For pull requests: follow the [PR Requirements](./docs/PR_REQS.md)
 
 <br>
 
@@ -30,7 +31,7 @@ Here are some contribution ideas depending on your level of experience and famil
 
 ### Head Chef
 
-* **Create a recipe** -- create your own recipe using the [recipe template](./recipe.md) then test, validate and submit your recipe by completeing a pull request according to the [PR Requirements](PR_REQS.md).
+* **Create a recipe** -- create your own recipe using the [recipe template](./templates/recipe.md) then test, validate and submit your recipe by completeing a pull request according to the [PR Requirements](PR_REQS.md).
 
 * **Review a PR** -- pick [an open PR](https://github.com/nogibjj/candle-cookbook/pulls?=qis:pr%20is:open). First ensure the PR check has passed, then test and validate any code additions. Submit your review outcome in the comments section according to the traffic-light system. `@` tag one of the community leaders in your comment to finalise the merge.
     * 🔴 If the PR check has failed or there are major flaws write "NOT APPROVED" including your reasons

@@ -50,3 +50,17 @@ whereis cudnn.h
 
 * [Huggingface Candle repo](https://github.com/huggingface/candle)
 * [Candle User Guide](https://huggingface.github.io/candle/guide/installation.html)
+
+<hr>
+
+## 🌱 Contributing
+
+We welcome contributions from anyone who aligns with Our Mission and Our Principles.
+
+Get started by reading our [Code of Conduct](https://github.com/nogibjj/candle-cookbook/blob/main/CODE_OF_CONDUCT.md) then check out the [Contributor Guidelines](https://github.com/nogibjj/candle-cookbook/blob/main/CONTRIBUTING.md).
+
+<hr>
+
+## 🧑‍🍳 Our Team: 
+
+Get to know our [Community Leaders](https://github.com/nogibjj/candle-cookbook/blob/main/TEAM.md)
