@@ -18,6 +18,18 @@ Democratize access to state of the art AI models.
 
 <hr>
 
+## 🛣️Roadmap
+
+Our goal is to document each stage of a fully transparent LLM development cycle
+
+- [ ] Publish MVP Candle Cookbook
+- [ ] Ethically source and construct an openly available LLM dataset
+- [ ] Build a Candle-based LLM from scratch
+- [ ] Customize LLM with finetuning
+- [ ] CI/CD deployment of LLM
+
+<hr>
+
 ## 🌱 Contributing
 
 We welcome contributions from anyone who aligns with Our Mission and Our Principles.
