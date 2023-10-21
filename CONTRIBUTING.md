@@ -13,6 +13,10 @@ We welcome contributions from anyone who aligns with Our Mission and Our Princip
 - [ ] Review Cookbook changes and test hyperlinks by running `make serve`
 - [ ] For pull requests: follow the [PR Requirements](./docs/PR_REQS.md)
 
+**⚠️ IMPORTANT:** Once you have submitted a PR do not push any further changes. If you wish to make edits, delete the PR and submit a new one.
+
+**❌ NEVER FORCE PUSH:** i.e. git push origin my-branch --force
+
 <br>
 
 Here are some contribution ideas depending on your level of experience and familiarity with git, Rust and Candle.
