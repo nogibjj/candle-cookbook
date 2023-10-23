@@ -121,4 +121,4 @@ cd target/release/examples
 aws s3 cp quantized s3://my-candle-binaries
 ```
 
-**IMPORTANT! Terminate any AWS resources to prevent unexpected charges.** 
+**⚠️ IMPORTANT: Terminate any AWS resources to prevent unexpected charges.** 

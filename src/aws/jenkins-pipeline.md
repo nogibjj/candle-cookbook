@@ -109,7 +109,7 @@ rm -rf /var/lib/jenkins
 1. AWS S3 Console >> my-candle-binaries >> CandlePipeline/ >> BuildArtif/
 2. Order by "Last modified" >> Download latest zip
 
-**IMPORTANT! Terminate any AWS resources to prevent unexpected charges.** 
+**⚠️ IMPORTANT: Terminate any AWS resources to prevent unexpected charges.** 
 
 ## References
 * [Install Jenkins to EC2](https://www.jenkins.io/doc/book/installing/linux/#debianubuntu)

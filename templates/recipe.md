@@ -17,6 +17,7 @@
 <!-- To add assets create folder assets/source/recipe/ -->
 ![image](../assets/source/recipe/recipe.png) 
 
-**IMPORTANT! Terminate any resources to prevent unexpected charges.** 
+<!-- Include disclaimer for cloud platform builds -->
+**⚠️ IMPORTANT: Terminate any resources to prevent unexpected charges.** 
 
 ## References
