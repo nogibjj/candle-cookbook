@@ -83,6 +83,7 @@ rm -rf /var/lib/jenkins
   rustc --version
   cargo --version
   nvcc --version
+  whereis cudnn.h
   nvidia-smi
   cargo build --example quantized --features cuda,cudnn --release
   cargo build --example falcon --features cuda,cudnn --release
