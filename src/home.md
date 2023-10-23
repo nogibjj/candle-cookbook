@@ -4,7 +4,6 @@
 
 Democratize access to state of the art AI models.
 
-
 ## 🌏 The Principles: 
 
 🫱🏾‍🫲🏼 **Trust** ~ ethically sourced data and end-to-end transparency.
@@ -13,6 +12,11 @@ Democratize access to state of the art AI models.
 
 🌱 **Sustainability** ~ optimize efficiency to minimize our carbon footprint.
 
+## 🌱 Contributing
+
+We welcome contributions from anyone who aligns with Our Mission and Our Principles.
+
+Get started by reading our [Code of Conduct](https://github.com/nogibjj/candle-cookbook/blob/main/CODE_OF_CONDUCT.md) then check out the [Contributor Guidelines](https://github.com/nogibjj/candle-cookbook/blob/main/CONTRIBUTING.md).
 
 ## 🍳 The Recipes:
 
@@ -41,17 +45,9 @@ nvcc --version
 whereis cudnn.h
 ```
 
-***Disclaimer***: 
+**⚠️ IMPORTANT:** 
 
-*AWS/Azure builds may incur charges. It is your responsibility to understand the associated resource costs and useage rates. We are not liable for any charges incurred from the utilization of these services.* 
-
-
-## 🕯️Official Candle Docs
-
-* [Huggingface Candle repo](https://github.com/huggingface/candle)
-* [Candle User Guide](https://huggingface.github.io/candle/guide/installation.html)
-
-<hr>
+AWS/Azure builds may incur charges. It is your responsibility to understand the associated resource costs and useage rates. We are not liable for any charges incurred from the utilization of these services. 
 
 ## 🛣️Roadmap
 
@@ -63,16 +59,13 @@ Our goal is to document each stage of a fully transparent LLM development cycle
 - [ ] Customize LLM with finetuning
 - [ ] CI/CD deployment of LLM
 
-<hr>
-
-## 🌱 Contributing
-
-We welcome contributions from anyone who aligns with Our Mission and Our Principles.
-
-Get started by reading our [Code of Conduct](https://github.com/nogibjj/candle-cookbook/blob/main/CODE_OF_CONDUCT.md) then check out the [Contributor Guidelines](https://github.com/nogibjj/candle-cookbook/blob/main/CONTRIBUTING.md).
-
-<hr>
-
 ## 🧑‍🍳 Our Team: 
 
 Get to know our [Community Leaders](https://github.com/nogibjj/candle-cookbook/blob/main/TEAM.md)
+
+
+## 🕯️Official Candle Docs
+
+* [Huggingface Candle repo](https://github.com/huggingface/candle)
+* [Candle User Guide](https://huggingface.github.io/candle/guide/installation.html)
+
