@@ -401,7 +401,7 @@ cd target/release/examples
 cd target/release/examples
 aws s3 cp quantized s3://my-candle-binaries
 </code></pre>
-<p><strong>IMPORTANT! Terminate any AWS resources to prevent unexpected charges.</strong> </p>
+<p><strong>⚠️ IMPORTANT: Terminate any AWS resources to prevent unexpected charges.</strong> </p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="automate-binary-builds-with-jenkins--codepipeline"><a class="header" href="#automate-binary-builds-with-jenkins--codepipeline">Automate Binary Builds with Jenkins + CodePipeline</a></h1>
 <h2 id="prerequisites-1"><a class="header" href="#prerequisites-1">Prerequisites</a></h2>
 <ul>
@@ -507,7 +507,7 @@ cargo build --example falcon --features cuda,cudnn --release
 <li>AWS S3 Console &gt;&gt; my-candle-binaries &gt;&gt; CandlePipeline/ &gt;&gt; BuildArtif/</li>
 <li>Order by &quot;Last modified&quot; &gt;&gt; Download latest zip</li>
 </ol>
-<p><strong>IMPORTANT! Terminate any AWS resources to prevent unexpected charges.</strong> </p>
+<p><strong>⚠️ IMPORTANT: Terminate any AWS resources to prevent unexpected charges.</strong> </p>
 <h2 id="references"><a class="header" href="#references">References</a></h2>
 <ul>
 <li><a href="https://www.jenkins.io/doc/book/installing/linux/#debianubuntu">Install Jenkins to EC2</a></li>
