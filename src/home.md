@@ -47,7 +47,7 @@ whereis cudnn.h
 
 **⚠️ IMPORTANT:** 
 
-AWS/Azure builds may incur charges. It is your responsibility to understand the associated resource costs and useage rates. We are not liable for any charges incurred from the utilization of these services. 
+AWS/Azure builds may incur charges. It is your responsibility to understand the associated resource costs. Please review the useage rates accordingly, as we are not liable for any charges incurred from the utilization of these platforms/services. 
 
 ## 🛣️Roadmap
 
