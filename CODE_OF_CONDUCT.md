@@ -28,25 +28,14 @@ diverse, inclusive, and healthy community.
 * Tolerate attacking or exclusionary conduct towards any member
 * Disclose private information of any member
 
-## 🌎 Scope
-
-This Code of Conduct applies within all community spaces, and also applies when
-an individual is officially representing the community in public spaces.
-Examples of representing our community include using an official e-mail address,
-posting via an official social media account, or acting as an appointed
-representative at an online or offline event.
-
 ## 👮🏽 Enforcement
 
 We are building a community that empowers members to engage in open communication, 
 conflict resolution, and collaboration. We encourage members to work collectively to 
 address and solve disagreements. 
 
-In the instance of severe violations or when leader mediation is required, please contact
+In the instance of severe violations or when mediation is required, please contact
 one of the [community leaders](TEAM.md) directly.  
-
-All complaints will be reviewed and investigated promptly and fairly whilst respecting the privacy 
-and security of the reporter. The outcome will only be communicated to the reporter and the accused. 
 
 Community leaders are responsible for upholding our standards of
 acceptable behavior. The community leaders will come to agreement 
@@ -56,6 +45,17 @@ Community leaders have the right and responsibility to remove, edit, or reject
 comments, commits, code, wiki edits, issues, and other contributions that are
 not aligned to this Code of Conduct, and will communicate reasons for moderation
 decisions when appropriate.
+
+All complaints will be reviewed and investigated promptly and fairly whilst respecting the privacy 
+and security of the reporter. The outcome will only be communicated to the reporter and the accused. 
+
+## 🌎 Scope
+
+This Code of Conduct applies within all community spaces, and also applies when
+an individual is officially representing the community in public spaces.
+Examples of representing our community include using an official e-mail address,
+posting via an official social media account, or acting as an appointed
+representative at an online or offline event.
 
 ## 👏 Attribution
 
