@@ -1,6 +1,6 @@
 # Candle Cookbook
 
-![GH Pages Deploy](https://github.com/nogibjj/candle-cookbook/actions/workflows/deploy.yml/badge.svg)
+![Deploy](https://github.com/nogibjj/candle-cookbook/actions/workflows/deploy.yml/badge.svg)
 
 Cooking live @ [https://nogibjj.github.io/candle-cookbook/](https://nogibjj.github.io/candle-cookbook/)
 
