@@ -2,7 +2,7 @@
 
 - [ ] Read and adhere to our [Contributor Guidelines](./CONTRIBUTING.md)
 - [ ] Read and agree to our [Code of Conduct](./CODE_OF_CONDUCT.md)
-- [ ] Install Candle Cookbook according to the [Developer Setup](./docs/DEV_ENV.md) guide
+- [ ] Install Candle Cookbook according to the [Developer Setup](./DEV_ENV.md) guide
 - [ ] Work from the latest Candle Cookbook `git fetch upstream`
 - [ ] Name your branch according to [creating your dev branch](#creating-your-dev-branch)
 - [ ] Test and review according to [reviewing your changes](#reviewing-your-changes)
