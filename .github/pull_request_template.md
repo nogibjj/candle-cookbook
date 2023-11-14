@@ -17,3 +17,4 @@
 - [ ] I have previewed all changes and links using `make serve`
 - [ ] I have included assets under `assets/source/<recipe-name>/` (optional)
 - [ ] My recipe name is unique and added to `build-platform/index.md` (optional)
+- [ ] My recipe name and link is added to `build-platform/index.md` (optional)

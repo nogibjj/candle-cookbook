@@ -5,7 +5,7 @@ Using Ephemeral Infrastructure with Azure VMS as GitHub Action Runners to build 
 * Setup [Azure Account](../hello-azure.md) and record the `subscription ID` you have from the setting. 
 
 * Create a [Personal Access Token (PAT)](https://github.com/settings/tokens/new?description=Azure+GitHub+Runner&scopes=repo) record as `$GitHubPAT`
-* 
+
 
 ### Create an service principle with the following details:
 * AppID 

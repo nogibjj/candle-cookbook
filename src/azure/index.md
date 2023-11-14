@@ -10,5 +10,5 @@
 **Getting Started**
 
 - [Hello, Azure!](./hello-azure.md) ~ Hello, Candle on Azure
-- [Azure spot runner setup](./azure-spot-runner/azure-spot-runner.md) ~ Setup the Spot Runner resource group on Azure prepare for the VM image build. 
-- [Azure VM + Github Action](./azure-spot-runner/candle-VM.md) Run the spot runner to build the binary and deploy the binary to Github release.
+- [Azure spot runner setup](./azure-spot-runner.md) ~ Setup the Spot Runner resource group on Azure prepare for the VM image build. 
+- [Azure VM + Github Action](./candle-VM.md) Run the spot runner to build the binary and deploy the binary to Github release.

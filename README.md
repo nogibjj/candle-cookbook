@@ -18,7 +18,7 @@ Democratize access to state of the art AI models.
 
 <hr>
 
-## 🛣️Roadmap
+## 🛣️ Roadmap
 
 Our goal is to document each stage of a fully transparent LLM development cycle
 

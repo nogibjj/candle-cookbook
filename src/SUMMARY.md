@@ -11,3 +11,5 @@
 
 - [Azure Builds](azure/index.md)
     - [Hello, Candle on Azure!](azure/hello-azure.md)
+    - [Azure spot runner setup](azure/azure-spot-runner.md)
+    - [Azure VM + Github Action](azure/candle-VM.md)

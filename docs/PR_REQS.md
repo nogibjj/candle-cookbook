@@ -44,7 +44,8 @@ NB: Your recipe name must be unique
 
 1. Copy the [recipe template](../templates/recipe.md) into the relevant build platform directory (i.e. aws, azure, local)
 2. Rename as your kebab-case `recipe-name.md`.
-3. Add your recipe and link to the relevant `build-platform/index.md` file
+3. Add your recipe and link to the relevant `build-platform/index.md` file 
+4. Add your recipe and link to `SUMMARY.md`
 
 To include assets create a new folder `assets/source/<recipe-name>/`
 
