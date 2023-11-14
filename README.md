@@ -30,19 +30,30 @@ Our goal is to document each stage of a fully transparent LLM development cycle
 
 <hr>
 
+## 🕯️Start Here
+
+Welcome! Get familiar with Candle Cookbook by going through some of our favourite introductory tutorials
+
+* [Hello, Candle!](./src/local/hello-candle.md)
+* [Hello, Candle on AWS!](./src/aws/hello-aws.md)
+* [Hello, Candle on Azure!](./src/azure/hello-azure.md)
+
+We also recommend getting familiar with the Official Candle framework and User Guide
+
+* [Huggingface Candle repo](https://github.com/huggingface/candle)
+* [Candle User Guide](https://huggingface.github.io/candle/index.html)
+
+<hr>
+
 ## 🌱 Contributing
 
 We welcome contributions from anyone who aligns with Our Mission and Our Principles.
 
-Get started by reading our [Code of Conduct](./CODE_OF_CONDUCT.md) then check out the [Contributor Guidelines](./CONTRIBUTING.md).
+To get started as a contributor:
 
-<hr>
-
-## 🕯️Official Candle Docs
-
-* [Huggingface Candle repo](https://github.com/huggingface/candle)
-* [Candle User Guide](https://huggingface.github.io/candle/guide/installation.html)
-
+* Read our [Code of Conduct](./CODE_OF_CONDUCT.md)
+* Read the [Contributor Guidelines](./CONTRIBUTING.md)
+* Install Candle Cookbook according to the [Developer Setup](./docs/DEV_ENV.md) guide
 
 <hr>
 

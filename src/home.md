@@ -12,11 +12,28 @@ Democratize access to state of the art AI models.
 
 🌱 **Sustainability** ~ optimize efficiency to minimize our carbon footprint.
 
+## 🕯️ Start Here
+
+Welcome! Get familiar with Candle Cookbook by going through some of our favourite introductory tutorials
+
+* [Hello, Candle!](./local/hello-candle.md)
+* [Hello, Candle on AWS!](./aws/hello-aws.md)
+* [Hello, Candle on Azure!](./azure/hello-azure.md)
+
+We also recommend getting familiar with the Official Candle framework and User Guide
+
+* [Huggingface Candle repo](https://github.com/huggingface/candle)
+* [Candle User Guide](https://huggingface.github.io/candle/index.html)
+
 ## 🌱 Contributing
 
 We welcome contributions from anyone who aligns with Our Mission and Our Principles.
 
-Get started by reading our [Code of Conduct](https://github.com/nogibjj/candle-cookbook/blob/main/CODE_OF_CONDUCT.md) then check out the [Contributor Guidelines](https://github.com/nogibjj/candle-cookbook/blob/main/CONTRIBUTING.md).
+To get started as a contributor:
+
+* Read our [Code of Conduct](../CODE_OF_CONDUCT.md)
+* Read the [Contributor Guidelines](../CONTRIBUTING.md)
+* Install Candle Cookbook according to the [Developer Setup](../docs/DEV_ENV.md) guide
 
 ## 🍳 The Recipes:
 
@@ -62,10 +79,4 @@ Our goal is to document each stage of a fully transparent LLM development cycle
 ## 🧑‍🍳 Our Team: 
 
 Get to know our [Community Leaders](https://github.com/nogibjj/candle-cookbook/blob/main/TEAM.md)
-
-
-## 🕯️Official Candle Docs
-
-* [Huggingface Candle repo](https://github.com/huggingface/candle)
-* [Candle User Guide](https://huggingface.github.io/candle/guide/installation.html)
 
