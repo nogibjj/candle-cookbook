@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Define a working directory
+export HOME=/root
+WORK_DIR="/opt/actions-runner"
+
+chown -R runner $WORK_DIR
+su - runner -c "$WORK_DIR/config.sh --unattended --url https://github.com/nogibjj/candle_scott_Azure_vm --token $RUNNER_TOKEN"
+nohup su - runner -c "$WORK_DIR/run.sh" &
+
+apt-get update
+apt-get install -y build-essential pkg-config libssl-dev protobuf-compiler jq git-lfs curl jq
+
+git lfs install
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+export PATH="$HOME/.cargo/bin:$PATH"
+
+git clone https://github.com/huggingface/candle.git /root/candle
+cd /root/candle
+
+if cargo build --example whisper --release; then
+    FILE="/root/candle/target/release/examples/whisper"
+    MIME_TYPE=$(file -b --mime-type "$FILE")
+    TAG="v$(date +%Y%m%d%H%M%S)"
+    RELEASE_NAME="CPU Whisper Binary Release"
+    GITHUB_TOKEN="$GITHUB_TOKEN"  # Token passed from GitHub Actions
+
+    CREATE_RELEASE_RESPONSE=$(curl -X POST -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/json" -d "{\"tag_name\": \"$TAG\", \"name\": \"$RELEASE_NAME\"}" "https://api.github.com/repos/nogibjj/candle_scott_Azure_vm/releases")
+    UPLOAD_URL=$(echo $CREATE_RELEASE_RESPONSE | jq -r .upload_url | sed "s/{?name,label}//")
+
+    curl -X POST -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: $MIME_TYPE" --data-binary @"$FILE" "$UPLOAD_URL?name=$(basename "$FILE")"
+else
+    echo "Cargo build failed."
+fi
+

@@ -1,0 +1,31 @@
+on: workflow_dispatch
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    name: Create Custom Linux Image
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Login via Az module
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+
+    - name: Build and Distribute Custom VM Image
+      uses: azure/build-vm-image@v0
+      with:
+        resource-group-name: '<RESOURCE_GROUP_NAME>'
+        location: '<RESOURCE_LOCATION>'
+        managed-identity: '<AZURE-IDENTITY>' 
+        source-os-type: 'linux'
+        vm-size: "Standard_D2s_v3"
+        source-image-type: 'platformimage'
+        source-image: Canonical:0001-com-ubuntu-server-jammy:22_04-lts-gen2:latest
+        customizer-source: ${{ github.workspace }}/workflow-artifacts
+        customizer-script: |
+          ls -l /tmp/
+          ls -l /tmp/workflow-artifacts
+          sh /tmp/workflow-artifacts/setup-image.sh
+

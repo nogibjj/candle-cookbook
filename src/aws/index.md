@@ -15,4 +15,3 @@
 
 - [CodePipeline + Jenkins Build](./jenkins-pipeline.md) ~ automated binary builds on EC2 with Jenkins + CodePipeline
 
-- [codebuild + S3](./codebuild_s3_cpu.md) ~ automated binary build + run using CPU
