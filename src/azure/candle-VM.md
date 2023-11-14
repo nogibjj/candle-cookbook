@@ -225,6 +225,10 @@
 
 > Note, after the runner build, it might takes up to 15 mins for this cpu VM to finish the work and deploy the whisper release in Github. 
 
+After the binary deploy to Github, you will find out the release file in your github repo. 
+
+![image](../assets/azure/spotrunner/releases.png)
+
 ### Debugging on VM
 You can check the log from Azure Portal:
 1. Go to the Azure Portal.
