@@ -171,7 +171,32 @@
 
                 <div id="content" class="content">
                     <main>
-                        
+                        <h1 id="hello-candle-on-azure"><a class="header" href="#hello-candle-on-azure">Hello, Candle on Azure.</a></h1>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
+<ul>
+<li>A <a href="https://github.com/join">Github Account</a></li>
+<li>An <a href="https://azure.microsoft.com/en-us/free">Azure Account</a></li>
+</ul>
+<h1 id="azure-spot-runner-build"><a class="header" href="#azure-spot-runner-build">Azure Spot Runner build</a></h1>
+<h3 id="install-azure-cli"><a class="header" href="#install-azure-cli">Install Azure Cli</a></h3>
+<pre><code>$ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+</code></pre>
+<h3 id="login-in-to-azure"><a class="header" href="#login-in-to-azure">login in to Azure</a></h3>
+<pre><code>$ az login 
+
+# if above not working run:  
+$ az login --use-device-code
+</code></pre>
+<pre><code># check your Azure account information
+$ az account show
+
+# if you have multiple accounts, you need to set the specific account you want to use: 
+$ az account set --subscription &lt;subscription_ID&gt;
+</code></pre>
+<ul>
+<li>the <code>subscription ID</code> is the <code>id</code> from result of az account show.</li>
+</ul>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
