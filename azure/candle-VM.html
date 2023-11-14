@@ -1,0 +1,455 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Azure VM + Github Action - Candle Cookbook</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../home.html"><strong aria-hidden="true">1.</strong> Candle Cookbook</a></li><li class="chapter-item expanded "><a href="../local/index.html"><strong aria-hidden="true">2.</strong> Local Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../local/hello-candle.html"><strong aria-hidden="true">2.1.</strong> Hello, Candle!</a></li></ol></li><li class="chapter-item expanded "><a href="../aws/index.html"><strong aria-hidden="true">3.</strong> AWS Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aws/hello-aws.html"><strong aria-hidden="true">3.1.</strong> Hello, Candle on AWS!</a></li><li class="chapter-item expanded "><a href="../aws/jenkins-pipeline.html"><strong aria-hidden="true">3.2.</strong> CodePipeline + Jenkins Build</a></li></ol></li><li class="chapter-item expanded "><a href="../azure/index.html"><strong aria-hidden="true">4.</strong> Azure Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../azure/hello-azure.html"><strong aria-hidden="true">4.1.</strong> Hello, Candle on Azure!</a></li><li class="chapter-item expanded "><a href="../azure/azure-spot-runner.html"><strong aria-hidden="true">4.2.</strong> Azure spot runner setup</a></li><li class="chapter-item expanded "><a href="../azure/candle-VM.html" class="active"><strong aria-hidden="true">4.3.</strong> Azure VM + Github Action</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Candle Cookbook</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="using-github-action-to-build-candle-image-on-azure-spot-runner-vm"><a class="header" href="#using-github-action-to-build-candle-image-on-azure-spot-runner-vm">Using Github Action to build Candle image on Azure Spot Runner VM</a></h1>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
+<ul>
+<li>A <a href="https://github.com/join">Github Account</a></li>
+<li>An <a href="https://azure.microsoft.com/en-us/free">Azure Account</a></li>
+<li>Finish setup <a href="./azure-spot-runner.html">Azure Spot Runner</a></li>
+</ul>
+<h2 id="create-github-secrets"><a class="header" href="#create-github-secrets">Create Github Secrets</a></h2>
+<ol>
+<li>In Github, go to your repository. </li>
+<li>Go to <strong>Settings</strong> in the navigation menu.</li>
+<li>Select <strong>Securigy &gt; Secrets and variables &gt; Actions</strong>. </li>
+<li>Select <strong>New Repository Secret</strong></li>
+<li>Paste the entire <a href="https://github.com/ScottLL/candle-cookbook/blob/e96d35af185ec67f382e1ac891590197705d7ffd/src/azure/hello-azure.md#L49-L50">Json output</a> from the Azure CLI command into the github action secret's value field. Give the secret the name: <code>AZURE_CREDENTIALS</code>. </li>
+<li>Select <strong>Add secret.</strong></li>
+</ol>
+<h2 id="build-your-image"><a class="header" href="#build-your-image">Build your image</a></h2>
+<h3 id="structure-overview"><a class="header" href="#structure-overview">Structure Overview</a></h3>
+<pre><code>- Azure-spot-runner 
+  - .github/workflow
+    - create-image.yml
+    - runner.yml
+  - workflow-artifacts
+    - cloud-init.txt
+    - setup-image.sh
+</code></pre>
+<ol>
+<li>
+<p>Use the Create-Image.yml file below to create a custom virtual machine image.</p>
+<pre><code>on: workflow_dispatch
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    name: Create Custom Linux Image
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Login via Az module
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+
+    - name: Build and Distribute Custom VM Image
+      uses: azure/build-vm-image@v0
+      with:
+        resource-group-name: '&lt;RESOURCE_GROUP_NAME&gt;'
+        location: '&lt;RESOURCE_LOCATION&gt;'
+        managed-identity: '&lt;AZURE-IDENTITY&gt;' 
+        source-os-type: 'linux'
+        vm-size: &quot;Standard_D2s_v3&quot;
+        source-image-type: 'platformimage'
+        source-image: Canonical:0001-com-ubuntu-server-jammy:22_04-lts-gen2:latest
+        customizer-source: ${{ github.workspace }}/workflow-artifacts
+        customizer-script: |
+          ls -l /tmp/
+          ls -l /tmp/workflow-artifacts
+          sh /tmp/workflow-artifacts/setup-image.sh
+
+
+</code></pre>
+</li>
+</ol>
+<ul>
+<li>
+<p>You can modify the following information to your own secrets you build in <a href="./azure-spot-runner.html">azure-spot-runner</a></p>
+<pre><code>resource-group-name: '&lt;RESOURCE_GROUP_NAME&gt;'
+location: '&lt;RESOURCE_LOCATION&gt;'
+managed-identity: '&lt;AZURE-IDENTITY&gt;'       
+</code></pre>
+<p>Replace the placeholders, where you created them in the Hello-azure.md, </p>
+<ul>
+<li><a href="./azure-spot-runner.html#L27">RESOURCE_GROUP_NAME</a></li>
+<li><a href="./hello-azure.html#L58">RESOURCE_LOCATION</a></li>
+<li><a href="./hello-azure.html#L73">AZURE-IDENTITY</a></li>
+</ul>
+<p>You can also change the VM type (CPU &amp; GPU) by changing <code>&lt;vm-size&gt;</code>, <code>&lt;source-image-type&gt;</code>, <code>&lt;source-image&gt;</code></p>
+</li>
+</ul>
+<ol start="2">
+<li>
+<p>You will also create an <code>setup-image.sh</code> below for the image build. </p>
+<pre><code>#!/bin/bash
+#
+# Setup the runner to have the Azure CLI pre-installed as well as the Actions
+# Runner
+
+# Define a working directory
+WORK_DIR=&quot;/opt/actions-runner&quot;
+
+# Install Azure CLI, should not use sudo
+curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+
+# Create a folder
+mkdir -p $WORK_DIR &amp;&amp; cd $WORK_DIR
+
+# Download the latest runner package
+curl -O -L https://github.com/actions/runner/releases/download/v2.310.2/actions-runner-linux-x64-2.310.2.tar.gz
+
+# Extract the installer
+tar xzf $WORK_DIR/actions-runner-linux-x64-2.310.2.tar.gz
+
+</code></pre>
+</li>
+</ol>
+<h2 id="start-your-runner-and-build-the-binary"><a class="header" href="#start-your-runner-and-build-the-binary">Start your Runner and Build the Binary</a></h2>
+<ol>
+<li>
+<p>After you create the VM image, now we can start run it by using the Runner.yml below:</p>
+<pre><code>on: workflow_dispatch
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    name: Launch Runner
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Get GitHub Runner Registration Token
+      run: |
+        set -e
+        RUNNER_TOKEN=$(curl -f -X POST \
+                        -H &quot;Authorization: token ${{ secrets.PAT }}&quot; \
+                        -H &quot;Accept: application/vnd.github.v3+json&quot; \
+                        https://api.github.com/repos/&lt;YOUR_REPO_LOCATION&gt;/actions/runners/registration-token | grep token | cut -d '&quot;' -f 4)
+        echo $RUNNER_TOKEN
+        if [ -z &quot;$RUNNER_TOKEN&quot; ]; then
+          echo &quot;Failed to retrieve the runner token.&quot;
+          exit 1
+        fi
+        echo &quot;RUNNER_TOKEN=$RUNNER_TOKEN&quot; &gt;&gt; $GITHUB_ENV
+      env:
+        PAT: ${{ secrets.PAT }}
+
+    - name: Modify cloud-init.txt
+      run: |
+        set -e
+        sed -i &quot;2iRUNNER_TOKEN=$RUNNER_TOKEN&quot; workflow-artifacts/cloud-init.txt
+        if ! grep -q &quot;RUNNER_TOKEN=$RUNNER_TOKEN&quot; workflow-artifacts/cloud-init.txt; then
+          echo &quot;Modification with sed failed.&quot;
+          exit 1
+        fi
+
+    - name: Login via Az module
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+
+    - name: Find the latest image URI
+      id: find_image
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          IMAGE_URI=$(az image list --resource-group githubVM --query &quot;[-1].id&quot; --output tsv)
+          echo &quot;::set-output name=image_uri::$IMAGE_URI&quot;
+
+
+    - name: CREATE VM
+      id: create_vm
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az vm create --resource-group githubVM  --name &quot;app-vm-${{ GITHUB.RUN_NUMBER }}&quot;  --admin-username &quot;runner&quot; --admin-password &quot;${{ secrets.VM_PASSWORD }}&quot; --location  eastus \
+          --custom-data workflow-artifacts/cloud-init.txt \
+          --image &quot;${{ steps.find_image.outputs.image_uri }}&quot; \
+          --generate-ssh-keys
+
+    # At the end of your CREATE VM step
+    - name: Set VM Name Output
+      run: echo &quot;::set-output name=vm_name::app-vm-${{ GITHUB.RUN_NUMBER }}&quot;
+      id: vm_name
+</code></pre>
+</li>
+<li>
+<p>You can add your customer code inside the <code>workflow-artifacts/cloud-init.txt</code> below for specific need.</p>
+<pre><code>#!/bin/bash
+
+# Define a working directory
+export HOME=/root
+WORK_DIR=&quot;/opt/actions-runner&quot;
+
+# Start the runner
+chown -R runner $WORK_DIR
+su - runner -c &quot;$WORK_DIR/config.sh --unattended --url https://github.com/nogibjj/candle_scott_Azure_vm --token $RUNNER_TOKEN&quot;
+nohup su - runner -c &quot;$WORK_DIR/run.sh&quot; &amp;
+
+# Install packages
+apt-get update
+apt-get install -y build-essential pkg-config libssl-dev protobuf-compiler jq git-lfs curl jq
+git lfs install
+
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+export PATH=&quot;$HOME/.cargo/bin:$PATH&quot;
+
+# Get the candle Repo
+git clone https://github.com/huggingface/candle.git /root/candle
+cd /root/candle
+
+
+# Build the model and depoly the binary into Github Release. 
+if cargo build --example whisper --release; then
+    FILE=&quot;/root/candle/target/release/examples/whisper&quot;
+    MIME_TYPE=$(file -b --mime-type &quot;$FILE&quot;)
+    TAG=&quot;v$(date +%Y%m%d%H%M%S)&quot;
+    RELEASE_NAME=&quot;CPU Whisper Binary Release&quot;
+    GITHUB_TOKEN=&quot;$GITHUB_TOKEN&quot;  # Token passed from GitHub Actions
+
+    CREATE_RELEASE_RESPONSE=$(curl -X POST -H &quot;Authorization: token $GITHUB_TOKEN&quot; -H &quot;Content-Type: application/json&quot; -d &quot;{\&quot;tag_name\&quot;: \&quot;$TAG\&quot;, \&quot;name\&quot;: \&quot;$RELEASE_NAME\&quot;}&quot; &quot;https://api.github.com/repos/nogibjj/candle_scott_Azure_vm/releases&quot;)
+    UPLOAD_URL=$(echo $CREATE_RELEASE_RESPONSE | jq -r .upload_url | sed &quot;s/{?name,label}//&quot;)
+
+    curl -X POST -H &quot;Authorization: token $GITHUB_TOKEN&quot; -H &quot;Content-Type: $MIME_TYPE&quot; --data-binary @&quot;$FILE&quot; &quot;$UPLOAD_URL?name=$(basename &quot;$FILE&quot;)&quot;
+else
+    echo &quot;Cargo build failed.&quot;
+fi
+
+</code></pre>
+<p>The example code in cloud-init.txt is set up to build the candle whisper binary and deploy the binary into the Github release. </p>
+</li>
+</ol>
+<blockquote>
+<p>Note, after the runner build, it might takes up to 15 mins for this cpu VM to finish the work and deploy the whisper release in Github. </p>
+</blockquote>
+<p>After the binary deploy to Github, you will find out the release file in your github repo. </p>
+<p><img src="../assets/azure/spotrunner/releases.png" alt="image" /></p>
+<h3 id="debugging-on-vm"><a class="header" href="#debugging-on-vm">Debugging on VM</a></h3>
+<p>You can check the log from Azure Portal:</p>
+<ol>
+<li>Go to the Azure Portal.</li>
+<li>Navigate to the &quot;Virtual Machines&quot; section.</li>
+<li>Find and select the VM you created (app-vm).</li>
+<li>Under the &quot;Support + troubleshooting&quot; section, find and click on &quot;Serial console&quot;.</li>
+<li>The serial console will open in a new window. You might have to wait for a few moments as the console establishes a connection to the VM.</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../azure/azure-spot-runner.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../azure/azure-spot-runner.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

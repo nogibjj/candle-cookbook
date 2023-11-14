@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="home.html"><strong aria-hidden="true">1.</strong> Candle Cookbook</a></li><li class="chapter-item expanded "><a href="local/index.html"><strong aria-hidden="true">2.</strong> Local Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="local/hello-candle.html"><strong aria-hidden="true">2.1.</strong> Hello, Candle!</a></li></ol></li><li class="chapter-item expanded "><a href="aws/index.html"><strong aria-hidden="true">3.</strong> AWS Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="aws/hello-aws.html"><strong aria-hidden="true">3.1.</strong> Hello, Candle on AWS!</a></li><li class="chapter-item expanded "><a href="aws/jenkins-pipeline.html"><strong aria-hidden="true">3.2.</strong> CodePipeline + Jenkins Build</a></li></ol></li><li class="chapter-item expanded "><a href="azure/index.html"><strong aria-hidden="true">4.</strong> Azure Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="azure/hello-azure.html"><strong aria-hidden="true">4.1.</strong> Hello, Candle on Azure!</a></li><li class="chapter-item expanded "><a href="azure/azure-spot-runner/azure-spot-runner.html"><strong aria-hidden="true">4.2.</strong> Azure spot runner setup</a></li><li class="chapter-item expanded "><a href="azure/azure-spot-runner/candle-VM.html"><strong aria-hidden="true">4.3.</strong> Azure VM + Github Action</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="home.html"><strong aria-hidden="true">1.</strong> Candle Cookbook</a></li><li class="chapter-item expanded "><a href="local/index.html"><strong aria-hidden="true">2.</strong> Local Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="local/hello-candle.html"><strong aria-hidden="true">2.1.</strong> Hello, Candle!</a></li></ol></li><li class="chapter-item expanded "><a href="aws/index.html"><strong aria-hidden="true">3.</strong> AWS Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="aws/hello-aws.html"><strong aria-hidden="true">3.1.</strong> Hello, Candle on AWS!</a></li><li class="chapter-item expanded "><a href="aws/jenkins-pipeline.html"><strong aria-hidden="true">3.2.</strong> CodePipeline + Jenkins Build</a></li></ol></li><li class="chapter-item expanded "><a href="azure/index.html"><strong aria-hidden="true">4.</strong> Azure Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="azure/hello-azure.html"><strong aria-hidden="true">4.1.</strong> Hello, Candle on Azure!</a></li><li class="chapter-item expanded "><a href="azure/azure-spot-runner.html"><strong aria-hidden="true">4.2.</strong> Azure spot runner setup</a></li><li class="chapter-item expanded "><a href="azure/candle-VM.html"><strong aria-hidden="true">4.3.</strong> Azure VM + Github Action</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -537,8 +537,8 @@ cargo build --example falcon --features cuda,cudnn --release
 <p><strong>Getting Started</strong></p>
 <ul>
 <li><a href="azure/./hello-azure.html">Hello, Azure!</a> ~ Hello, Candle on Azure</li>
-<li><a href="azure/./azure-spot-runner/azure-spot-runner.html">Azure spot runner setup</a> ~ Setup the Spot Runner resource group on Azure prepare for the VM image build. </li>
-<li><a href="azure/./azure-spot-runner/candle-VM.html">Azure VM + Github Action</a> Run the spot runner to build the binary and deploy the binary to Github release.</li>
+<li><a href="azure/./azure-spot-runner.html">Azure spot runner setup</a> ~ Setup the Spot Runner resource group on Azure prepare for the VM image build. </li>
+<li><a href="azure/./candle-VM.html">Azure VM + Github Action</a> Run the spot runner to build the binary and deploy the binary to Github release.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hello-candle-on-azure"><a class="header" href="#hello-candle-on-azure">Hello, Candle on Azure.</a></h1>
 <h2 id="prerequisites-2"><a class="header" href="#prerequisites-2">Prerequisites</a></h2>
@@ -565,8 +565,302 @@ $ az account set --subscription &lt;subscription_ID&gt;
 <ul>
 <li>the <code>subscription ID</code> is the <code>id</code> from result of az account show.</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="azure-spot-runner-setup"><a class="header" href="#azure-spot-runner-setup">Azure spot runner setup</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="azure-vm--github-action"><a class="header" href="#azure-vm--github-action">Azure VM + Github Action</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="azure-spot-runner-with-github-action"><a class="header" href="#azure-spot-runner-with-github-action">Azure spot runner with Github Action.</a></h1>
+<p>Using Ephemeral Infrastructure with Azure VMS as GitHub Action Runners to build Candle binary latter.</p>
+<h2 id="requirements-3"><a class="header" href="#requirements-3">Requirements</a></h2>
+<ul>
+<li>
+<p>Setup <a href="azure/../hello-azure.html">Azure Account</a> and record the <code>subscription ID</code> you have from the setting. </p>
+</li>
+<li>
+<p>Create a <a href="https://github.com/settings/tokens/new?description=Azure+GitHub+Runner&amp;scopes=repo">Personal Access Token (PAT)</a> record as <code>$GitHubPAT</code></p>
+</li>
+</ul>
+<h3 id="create-an-service-principle-with-the-following-details"><a class="header" href="#create-an-service-principle-with-the-following-details">Create an service principle with the following details:</a></h3>
+<ul>
+<li>AppID </li>
+<li>password </li>
+<li>tenant information </li>
+</ul>
+<h4 id="create-an-service-principal-by-running"><a class="header" href="#create-an-service-principal-by-running">Create an service principal by running:</a></h4>
+<pre><code>$ az ad sp create-for-rbac -n &quot;Name_of_Service_principal&quot;
+</code></pre>
+<ul>
+<li>This output contains all the infomation about your <code>AZURE_CREDENTIALS</code>. Please copy &amp; save it to your local in order to set up VM after we setup the Spot Runner.</li>
+</ul>
+<p>The output includes credentials that you must protect. Be sure that you do not include these credentials in your code or check the credentials into your source control. For more information, see https://aka.ms/azadsp-cli</p>
+<h3 id="create-an-azure-resource-group"><a class="header" href="#create-an-azure-resource-group">Create an Azure Resource Group</a></h3>
+<p>A resource group is a way to group services together so that you can keep track of them and delete them later with ease. Use the <code>az</code> CLI to accomplish this:</p>
+<pre><code>az group create --location eastus --name &quot;&lt;RESOURCE_GROUP_NAME&gt;&quot;
+</code></pre>
+<p>Keep that resource group name handy for other operations. In this repository the <code>$&lt;RESOURCE_GROUP_NAME&gt;</code> resource group is used throughout. Note the location as well. Make sure that the location (region) maps to the resources you want to create.</p>
+<h3 id="create-an-azure-key-vault"><a class="header" href="#create-an-azure-key-vault">Create an Azure Key Vault</a></h3>
+<p>You will store your GitHub PAT here so that it can later be retrieved by the VM.</p>
+<pre><code>$ az keyvault create --name candel-vms --resource-group githubVM --location eastus
+$ az keyvault secret set --vault-name candel-vms --name &quot;GitHubPAT&quot; --value $GITHUB_PAT
+</code></pre>
+<p>Replace $GITHUB_PAT with the value of the PAT created earlier</p>
+<h3 id="assign-an-identity-with-permissions-for-key-vault"><a class="header" href="#assign-an-identity-with-permissions-for-key-vault">Assign an identity with permissions for Key Vault</a></h3>
+<p>Now that the key vault is created, you need to create an identity and then allow resources in the resource group to be able to access it. You must give this identity a name, in this case we use GitHubVMs. Note this name will be used in other steps.</p>
+<pre><code>$ az identity create --name GitHubVMs --resource-group githubVM --location eastus
+
+</code></pre>
+<p>Capture the Principal ID which will be used for the value for --object-id later. You can retrieve it again by using:</p>
+<pre><code>$ az identity show --name GitHubVMs --resource-group githubVM
+</code></pre>
+<p>Use the object id to set the policy, replace $OBJECT_ID with the one you found in the previous command:</p>
+<pre><code>$ az keyvault set-policy --name candel-vms --object-id &lt;$BOJECT_ID&gt; --secret-permissions get
+</code></pre>
+<h3 id="verify-you-can-get-the-pat-with-the-following-command"><a class="header" href="#verify-you-can-get-the-pat-with-the-following-command">Verify you can get the PAT with the following command:</a></h3>
+<pre><code>az keyvault secret show --name &quot;GitHubPAT&quot; --vault-name candel-vms --query value -o tsv
+</code></pre>
+<h3 id="provide-a-role-to-vms"><a class="header" href="#provide-a-role-to-vms">Provide a role to VMs</a></h3>
+<p>Assign a role to the VMs so that they have enough permissions to write the image when getting created. Start by finding the principalId which will then be needed for the next step:</p>
+<pre><code>az identity show --name GitHubVMs --resource-group githubVM --query principalId
+</code></pre>
+<p>With the principalId you can assign it to the VMs now:</p>
+<pre><code>az role assignment create --assignee &lt;principal_ID&gt; --role Contributor --resource-group githubVM
+</code></pre>
+<h3 id="trigger-the-create-image-run"><a class="header" href="#trigger-the-create-image-run">Trigger the create image run</a></h3>
+<p>Now you are ready to create the image. Run it manually and make sure it works correctly. If succesful, an image will be created for you which you can query with the following command:</p>
+<pre><code>az image list --resource-group githubVM --output table
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="using-github-action-to-build-candle-image-on-azure-spot-runner-vm"><a class="header" href="#using-github-action-to-build-candle-image-on-azure-spot-runner-vm">Using Github Action to build Candle image on Azure Spot Runner VM</a></h1>
+<h2 id="prerequisites-3"><a class="header" href="#prerequisites-3">Prerequisites</a></h2>
+<ul>
+<li>A <a href="https://github.com/join">Github Account</a></li>
+<li>An <a href="https://azure.microsoft.com/en-us/free">Azure Account</a></li>
+<li>Finish setup <a href="azure/./azure-spot-runner.html">Azure Spot Runner</a></li>
+</ul>
+<h2 id="create-github-secrets"><a class="header" href="#create-github-secrets">Create Github Secrets</a></h2>
+<ol>
+<li>In Github, go to your repository. </li>
+<li>Go to <strong>Settings</strong> in the navigation menu.</li>
+<li>Select <strong>Securigy &gt; Secrets and variables &gt; Actions</strong>. </li>
+<li>Select <strong>New Repository Secret</strong></li>
+<li>Paste the entire <a href="https://github.com/ScottLL/candle-cookbook/blob/e96d35af185ec67f382e1ac891590197705d7ffd/src/azure/hello-azure.md#L49-L50">Json output</a> from the Azure CLI command into the github action secret's value field. Give the secret the name: <code>AZURE_CREDENTIALS</code>. </li>
+<li>Select <strong>Add secret.</strong></li>
+</ol>
+<h2 id="build-your-image"><a class="header" href="#build-your-image">Build your image</a></h2>
+<h3 id="structure-overview"><a class="header" href="#structure-overview">Structure Overview</a></h3>
+<pre><code>- Azure-spot-runner 
+  - .github/workflow
+    - create-image.yml
+    - runner.yml
+  - workflow-artifacts
+    - cloud-init.txt
+    - setup-image.sh
+</code></pre>
+<ol>
+<li>
+<p>Use the Create-Image.yml file below to create a custom virtual machine image.</p>
+<pre><code>on: workflow_dispatch
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    name: Create Custom Linux Image
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Login via Az module
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+
+    - name: Build and Distribute Custom VM Image
+      uses: azure/build-vm-image@v0
+      with:
+        resource-group-name: '&lt;RESOURCE_GROUP_NAME&gt;'
+        location: '&lt;RESOURCE_LOCATION&gt;'
+        managed-identity: '&lt;AZURE-IDENTITY&gt;' 
+        source-os-type: 'linux'
+        vm-size: &quot;Standard_D2s_v3&quot;
+        source-image-type: 'platformimage'
+        source-image: Canonical:0001-com-ubuntu-server-jammy:22_04-lts-gen2:latest
+        customizer-source: ${{ github.workspace }}/workflow-artifacts
+        customizer-script: |
+          ls -l /tmp/
+          ls -l /tmp/workflow-artifacts
+          sh /tmp/workflow-artifacts/setup-image.sh
+
+
+</code></pre>
+</li>
+</ol>
+<ul>
+<li>
+<p>You can modify the following information to your own secrets you build in <a href="azure/./azure-spot-runner.html">azure-spot-runner</a></p>
+<pre><code>resource-group-name: '&lt;RESOURCE_GROUP_NAME&gt;'
+location: '&lt;RESOURCE_LOCATION&gt;'
+managed-identity: '&lt;AZURE-IDENTITY&gt;'       
+</code></pre>
+<p>Replace the placeholders, where you created them in the Hello-azure.md, </p>
+<ul>
+<li><a href="azure/./azure-spot-runner.html#L27">RESOURCE_GROUP_NAME</a></li>
+<li><a href="azure/./hello-azure.html#L58">RESOURCE_LOCATION</a></li>
+<li><a href="azure/./hello-azure.html#L73">AZURE-IDENTITY</a></li>
+</ul>
+<p>You can also change the VM type (CPU &amp; GPU) by changing <code>&lt;vm-size&gt;</code>, <code>&lt;source-image-type&gt;</code>, <code>&lt;source-image&gt;</code></p>
+</li>
+</ul>
+<ol start="2">
+<li>
+<p>You will also create an <code>setup-image.sh</code> below for the image build. </p>
+<pre><code>#!/bin/bash
+#
+# Setup the runner to have the Azure CLI pre-installed as well as the Actions
+# Runner
+
+# Define a working directory
+WORK_DIR=&quot;/opt/actions-runner&quot;
+
+# Install Azure CLI, should not use sudo
+curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+
+# Create a folder
+mkdir -p $WORK_DIR &amp;&amp; cd $WORK_DIR
+
+# Download the latest runner package
+curl -O -L https://github.com/actions/runner/releases/download/v2.310.2/actions-runner-linux-x64-2.310.2.tar.gz
+
+# Extract the installer
+tar xzf $WORK_DIR/actions-runner-linux-x64-2.310.2.tar.gz
+
+</code></pre>
+</li>
+</ol>
+<h2 id="start-your-runner-and-build-the-binary"><a class="header" href="#start-your-runner-and-build-the-binary">Start your Runner and Build the Binary</a></h2>
+<ol>
+<li>
+<p>After you create the VM image, now we can start run it by using the Runner.yml below:</p>
+<pre><code>on: workflow_dispatch
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    name: Launch Runner
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Get GitHub Runner Registration Token
+      run: |
+        set -e
+        RUNNER_TOKEN=$(curl -f -X POST \
+                        -H &quot;Authorization: token ${{ secrets.PAT }}&quot; \
+                        -H &quot;Accept: application/vnd.github.v3+json&quot; \
+                        https://api.github.com/repos/&lt;YOUR_REPO_LOCATION&gt;/actions/runners/registration-token | grep token | cut -d '&quot;' -f 4)
+        echo $RUNNER_TOKEN
+        if [ -z &quot;$RUNNER_TOKEN&quot; ]; then
+          echo &quot;Failed to retrieve the runner token.&quot;
+          exit 1
+        fi
+        echo &quot;RUNNER_TOKEN=$RUNNER_TOKEN&quot; &gt;&gt; $GITHUB_ENV
+      env:
+        PAT: ${{ secrets.PAT }}
+
+    - name: Modify cloud-init.txt
+      run: |
+        set -e
+        sed -i &quot;2iRUNNER_TOKEN=$RUNNER_TOKEN&quot; workflow-artifacts/cloud-init.txt
+        if ! grep -q &quot;RUNNER_TOKEN=$RUNNER_TOKEN&quot; workflow-artifacts/cloud-init.txt; then
+          echo &quot;Modification with sed failed.&quot;
+          exit 1
+        fi
+
+    - name: Login via Az module
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+
+    - name: Find the latest image URI
+      id: find_image
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          IMAGE_URI=$(az image list --resource-group githubVM --query &quot;[-1].id&quot; --output tsv)
+          echo &quot;::set-output name=image_uri::$IMAGE_URI&quot;
+
+
+    - name: CREATE VM
+      id: create_vm
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az vm create --resource-group githubVM  --name &quot;app-vm-${{ GITHUB.RUN_NUMBER }}&quot;  --admin-username &quot;runner&quot; --admin-password &quot;${{ secrets.VM_PASSWORD }}&quot; --location  eastus \
+          --custom-data workflow-artifacts/cloud-init.txt \
+          --image &quot;${{ steps.find_image.outputs.image_uri }}&quot; \
+          --generate-ssh-keys
+
+    # At the end of your CREATE VM step
+    - name: Set VM Name Output
+      run: echo &quot;::set-output name=vm_name::app-vm-${{ GITHUB.RUN_NUMBER }}&quot;
+      id: vm_name
+</code></pre>
+</li>
+<li>
+<p>You can add your customer code inside the <code>workflow-artifacts/cloud-init.txt</code> below for specific need.</p>
+<pre><code>#!/bin/bash
+
+# Define a working directory
+export HOME=/root
+WORK_DIR=&quot;/opt/actions-runner&quot;
+
+# Start the runner
+chown -R runner $WORK_DIR
+su - runner -c &quot;$WORK_DIR/config.sh --unattended --url https://github.com/nogibjj/candle_scott_Azure_vm --token $RUNNER_TOKEN&quot;
+nohup su - runner -c &quot;$WORK_DIR/run.sh&quot; &amp;
+
+# Install packages
+apt-get update
+apt-get install -y build-essential pkg-config libssl-dev protobuf-compiler jq git-lfs curl jq
+git lfs install
+
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+export PATH=&quot;$HOME/.cargo/bin:$PATH&quot;
+
+# Get the candle Repo
+git clone https://github.com/huggingface/candle.git /root/candle
+cd /root/candle
+
+
+# Build the model and depoly the binary into Github Release. 
+if cargo build --example whisper --release; then
+    FILE=&quot;/root/candle/target/release/examples/whisper&quot;
+    MIME_TYPE=$(file -b --mime-type &quot;$FILE&quot;)
+    TAG=&quot;v$(date +%Y%m%d%H%M%S)&quot;
+    RELEASE_NAME=&quot;CPU Whisper Binary Release&quot;
+    GITHUB_TOKEN=&quot;$GITHUB_TOKEN&quot;  # Token passed from GitHub Actions
+
+    CREATE_RELEASE_RESPONSE=$(curl -X POST -H &quot;Authorization: token $GITHUB_TOKEN&quot; -H &quot;Content-Type: application/json&quot; -d &quot;{\&quot;tag_name\&quot;: \&quot;$TAG\&quot;, \&quot;name\&quot;: \&quot;$RELEASE_NAME\&quot;}&quot; &quot;https://api.github.com/repos/nogibjj/candle_scott_Azure_vm/releases&quot;)
+    UPLOAD_URL=$(echo $CREATE_RELEASE_RESPONSE | jq -r .upload_url | sed &quot;s/{?name,label}//&quot;)
+
+    curl -X POST -H &quot;Authorization: token $GITHUB_TOKEN&quot; -H &quot;Content-Type: $MIME_TYPE&quot; --data-binary @&quot;$FILE&quot; &quot;$UPLOAD_URL?name=$(basename &quot;$FILE&quot;)&quot;
+else
+    echo &quot;Cargo build failed.&quot;
+fi
+
+</code></pre>
+<p>The example code in cloud-init.txt is set up to build the candle whisper binary and deploy the binary into the Github release. </p>
+</li>
+</ol>
+<blockquote>
+<p>Note, after the runner build, it might takes up to 15 mins for this cpu VM to finish the work and deploy the whisper release in Github. </p>
+</blockquote>
+<p>After the binary deploy to Github, you will find out the release file in your github repo. </p>
+<p><img src="azure/../assets/azure/spotrunner/releases.png" alt="image" /></p>
+<h3 id="debugging-on-vm"><a class="header" href="#debugging-on-vm">Debugging on VM</a></h3>
+<p>You can check the log from Azure Portal:</p>
+<ol>
+<li>Go to the Azure Portal.</li>
+<li>Navigate to the &quot;Virtual Machines&quot; section.</li>
+<li>Find and select the VM you created (app-vm).</li>
+<li>Under the &quot;Support + troubleshooting&quot; section, find and click on &quot;Serial console&quot;.</li>
+<li>The serial console will open in a new window. You might have to wait for a few moments as the console establishes a connection to the VM.</li>
+</ol>
 
                     </main>
 
