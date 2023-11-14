@@ -5,15 +5,12 @@
 * An [Azure Account](https://azure.microsoft.com/en-us/free)
 
 
-# Azure Spot Runner build
-
-
-### Install Azure Cli 
+### Install Azure ClI
 ```
 $ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 ```
 
-### login in to Azure 
+### Login in to Azure 
 ```
 $ az login 
 

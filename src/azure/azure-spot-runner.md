@@ -2,7 +2,7 @@
 Using Ephemeral Infrastructure with Azure VMS as GitHub Action Runners to build Candle binary latter.
 
 ## Requirements 
-* Setup [Azure Account](../hello-azure.md) and record the `subscription ID` you have from the setting. 
+* Setup [Azure Account](./hello-azure.md) and record the `subscription ID` you have from the setting. 
 
 * Create a [Personal Access Token (PAT)](https://github.com/settings/tokens/new?description=Azure+GitHub+Runner&scopes=repo) record as `$GitHubPAT`
 
@@ -28,7 +28,6 @@ az group create --location eastus --name "<RESOURCE_GROUP_NAME>"
 ```
 
 Keep that resource group name handy for other operations. In this repository the `$<RESOURCE_GROUP_NAME>` resource group is used throughout. Note the location as well. Make sure that the location (region) maps to the resources you want to create.
-
 
 
 ### Create an Azure Key Vault
@@ -75,7 +74,6 @@ With the principalId you can assign it to the VMs now:
 ```
 az role assignment create --assignee <principal_ID> --role Contributor --resource-group githubVM
 ```
-
 
 ### Trigger the create image run
 Now you are ready to create the image. Run it manually and make sure it works correctly. If succesful, an image will be created for you which you can query with the following command:
