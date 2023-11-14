@@ -236,10 +236,3 @@ You can check the log from Azure Portal:
 3. Find and select the VM you created (app-vm).
 4. Under the "Support + troubleshooting" section, find and click on "Serial console".
 5. The serial console will open in a new window. You might have to wait for a few moments as the console establishes a connection to the VM.
-
-
-
-
-
-
-
