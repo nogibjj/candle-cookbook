@@ -89,9 +89,11 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="home.html"><strong aria-hidden="true">1.</strong> Candle Cookbook</a></li><li class="chapter-item expanded "><a href="local/index.html"><strong aria-hidden="true">2.</strong> Local Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="local/hello-candle.html"><strong aria-hidden="true">2.1.</strong> Hello, Candle!</a></li></ol></li><li class="chapter-item expanded "><a href="aws/index.html"><strong aria-hidden="true">3.</strong> AWS Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="aws/hello-aws.html"><strong aria-hidden="true">3.1.</strong> Hello, Candle on AWS!</a></li><li class="chapter-item expanded "><a href="aws/jenkins-pipeline.html"><strong aria-hidden="true">3.2.</strong> CodePipeline + Jenkins Build</a></li></ol></li><li class="chapter-item expanded "><a href="azure/index.html"><strong aria-hidden="true">4.</strong> Azure Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="azure/hello-azure.html"><strong aria-hidden="true">4.1.</strong> Hello, Candle on Azure!</a></li><li class="chapter-item expanded "><a href="azure/azure-spot-runner.html"><strong aria-hidden="true">4.2.</strong> Azure spot runner setup</a></li><li class="chapter-item expanded "><a href="azure/candle-VM.html"><strong aria-hidden="true">4.3.</strong> Azure VM + Github Action</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="home.html"><strong aria-hidden="true">1.</strong> Candle Cookbook</a></li><li class="chapter-item expanded "><a href="local/index.html"><strong aria-hidden="true">2.</strong> Local Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="local/hello-candle.html"><strong aria-hidden="true">2.1.</strong> Hello, Candle!</a></li></ol></li><li class="chapter-item expanded "><a href="aws/index.html"><strong aria-hidden="true">3.</strong> AWS Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="aws/hello-aws.html"><strong aria-hidden="true">3.1.</strong> Hello, Candle on AWS!</a></li><li class="chapter-item expanded "><a href="aws/jenkins-pipeline.html"><strong aria-hidden="true">3.2.</strong> CodePipeline + Jenkins Build</a></li><li class="chapter-item expanded "><a href="aws/aws-cli.html"><strong aria-hidden="true">3.3.</strong> AWS Candle CLI</a></li></ol></li><li class="chapter-item expanded "><a href="azure/index.html"><strong aria-hidden="true">4.</strong> Azure Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="azure/hello-azure.html"><strong aria-hidden="true">4.1.</strong> Hello, Candle on Azure!</a></li><li class="chapter-item expanded "><a href="azure/azure-spot-runner.html"><strong aria-hidden="true">4.2.</strong> Azure spot runner setup</a></li><li class="chapter-item expanded "><a href="azure/candle-VM.html"><strong aria-hidden="true">4.3.</strong> Azure VM + Github Action</a></li></ol></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -304,6 +306,7 @@ cd target/release/examples
 <p><strong>Getting Started</strong></p>
 <ul>
 <li><a href="aws/./hello-aws.html">Hello, Candle on AWS!</a> ~ Hello, Candle! on AWS EC2 + S3</li>
+<li><a href="aws/./aws-cli.html">AWS Candle CLI</a> ~ Developer workflows using the Candle CLI for AWS</li>
 </ul>
 <p><strong>CI/CD Pipelines</strong></p>
 <ul>
@@ -527,6 +530,159 @@ cargo build --example falcon --features cuda,cudnn --release
 <li><a href="https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/#installing-and-configuring-jenkins">Jenkins on EC2</a></li>
 <li><a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-four-stage-pipeline.html#tutorials-four-stage-pipeline-prerequisites-jenkins-iam-role/">Jenkins + AWS Codepipeline</a></li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="developer-workflows-using-the-candle-cli-for-aws"><a class="header" href="#developer-workflows-using-the-candle-cli-for-aws">Developer Workflows using the Candle CLI for AWS</a></h1>
+<p>The Candle CLI tool offers a simple interface to support Candle Cookbook development workflows seamlessly across AWS resources.</p>
+<h2 id="prerequisites-2"><a class="header" href="#prerequisites-2">Prerequisites</a></h2>
+<ul>
+<li>Complete the <a href="aws/./hello-aws.html">Hello, Candle! on AWS</a> tutorial to setup your EC2 Instance, S3 Bucket and Candle-EC2 IAM User.</li>
+<li>Optional: Complete the <a href="aws/./jenkins-pipeline.html">Jenkins + CodePipeline</a> tutorial to setup automated EC2 and S3 builds</li>
+<li>A <a href="https://github.com/join">Github Account</a></li>
+<li>An <a href="https://portal.aws.amazon.com/billing/signup">AWS Account</a></li>
+</ul>
+<h2 id="cli-setup"><a class="header" href="#cli-setup">CLI Setup</a></h2>
+<ol>
+<li>
+<p>Download <a href="https://github.com/athletedecoded/aws-candle/tree/main">Candle CLI for AWS</a> by clicking the &quot;Download Latest&quot; README badge or the <a href="https://github.com/athletedecoded/aws-candle/releases">latest release</a> source code.</p>
+</li>
+<li>
+<p>Per the <a href="https://github.com/athletedecoded/aws-candle/tree/main#setup">AWS Candle CLI Setup Instructions</a></p>
+<ul>
+<li>Create an AWS IAM User Policy &quot;Candle-Cli&quot; with <code>AmazonS3FullAccess</code> and <code>AmazonEC2FullAccess</code> permissions</li>
+<li>Create an access key for your &quot;Candle-Cli&quot; user</li>
+</ul>
+</li>
+<li>
+<p>Add a <code>.env</code> file and configure with AWS credentials and EC2 Key Pair</p>
+<pre><code># $touch .env
+AWS_ACCESS_KEY_ID=&lt;YOUR_ACCESS_KEY&gt;
+AWS_SECRET_ACCESS_KEY=&lt;YOUR_ACCESS_SECRET&gt;
+AWS_DEFAULT_REGION=&lt;YOUR_AWS_REGION&gt;
+EC2_KEY=PATH/TO/EC2_KEY_PAIR.pem
+</code></pre>
+</li>
+</ol>
+<h2 id="using-the-candle-cli-to-connect-to-your-ec2-instance"><a class="header" href="#using-the-candle-cli-to-connect-to-your-ec2-instance">Using the Candle CLI to connect to your EC2 Instance</a></h2>
+<pre><code># List your EC2 instances
+$ cargo run list --ec2
+
+# Connect to EC2
+$ cargo run instance --id &lt;INSTANCE_ID&gt; --action start
+$ cargo run connect --id &lt;INSTANCE_ID&gt;
+
+# Check AWS CLI is installed on your EC2
+ubuntu@ip$ aws --version
+
+# If not: install AWS CLI
+ubuntu@ip$ curl &quot;https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip&quot; -o &quot;awscliv2.zip&quot;
+ubuntu@ip$ unzip awscliv2.zip
+ubuntu@ip$ sudo ./aws/install
+ubuntu@ip$ rm -r awscliv2.zip
+
+# Confirm install
+ubuntu@ip$ aws --version
+</code></pre>
+<h2 id="sample-workflows"><a class="header" href="#sample-workflows">Sample Workflows</a></h2>
+<ul>
+<li><a href="aws/aws-cli.html#run-prebuilt-binaries-on-ec2">Run Prebuilt Binaries on EC2</a></li>
+<li><a href="aws/aws-cli.html#build-binaries-on-ec2--s3-storage">Build Binaries on EC2 + S3 Storage</a></li>
+<li><a href="aws/aws-cli.html#move-jenkins--codepipeline-binaries-to-ec2">Move Jenkins + Codepipeline binaries to EC2</a></li>
+</ul>
+<h3 id="run-prebuilt-binaries-on-ec2"><a class="header" href="#run-prebuilt-binaries-on-ec2">Run Prebuilt Binaries on EC2</a></h3>
+<p>See available prebuilt binaries <a href="https://github.com/athletedecoded/cookbook-binaries/tree/main/binaries">here</a></p>
+<p>⚠️ IMPORTANT: Ensure you choose binaries compatible with your EC2 instance architecture</p>
+<pre><code># Connect to EC2
+$ cargo run instance --id &lt;INSTANCE_ID&gt; --action start
+$ cargo run connect --id &lt;INSTANCE_ID&gt;
+
+# Download binary
+ubuntu@ip$ wget -O mistral-cudnn https://github.com/athletedecoded/cookbook-binaries/raw/main/binaries/cudnn/mistral?download=
+
+# Set EC2 execution permissions
+ubuntu@ip$ chmod +x mistral-cudnn
+
+# Run binary
+ubuntu@ip$ ./mistral-cudnn --prompt &quot;who invented the lightbulb&quot;
+
+# Close SSH tunnel
+ubuntu@ip$ exit
+
+# Stop your EC2 instance to avoid charges
+$ cargo run instance --id &lt;INSTANCE_ID&gt; --action stop
+</code></pre>
+<h3 id="build-binaries-on-ec2--s3-storage"><a class="header" href="#build-binaries-on-ec2--s3-storage">Build Binaries on EC2 + S3 Storage</a></h3>
+<p>See available Candle models <a href="https://github.com/huggingface/candle/tree/main/candle-examples/examples">here</a></p>
+<pre><code># List your EC2 instances
+$ cargo run list --ec2
+
+# Connect to EC2
+$ cargo run instance --id &lt;INSTANCE_ID&gt; --action start
+$ cargo run connect --id &lt;INSTANCE_ID&gt;
+
+# If Candle repo is not on your EC2
+ubuntu@ip$ git clone https://github.com/huggingface/candle.git
+
+# Fetch latest candle repo
+ubuntu@ip$ cd candle
+ubuntu@ip$ git fetch upstream main
+
+# For CPU build (ex. quantized model)
+ubuntu@ip$ cargo build --example quantized --release
+
+# For CUDA + cuDNN build (ex. falcon model)
+ubuntu@ip$ cargo build --example falcon --features cuda,cudnn --release
+
+# Run models on EC2
+ubuntu@ip$ cd target/release/examples
+ubuntu@ip$ ./falcon --prompt &quot;who invented the lightbulb&quot;
+
+# Store models in existing S3 bucket &quot;my-candle-binaries&quot;
+ubuntu@ip$ aws s3 cp quantized s3://my-candle-binaries
+
+# Exit the SSH
+ubuntu@ip$ exit
+
+# Download binaries to run locally (assumes compatible local architecture)
+$ cargo run bucket --name my-candle-binaries --action list
+$ cargo run object --bucket my-candle-binaries --key falcon --action get
+$ ./falcon --prompt &quot;who invented the lightbulb&quot;
+
+# Stop your instance
+$ cargo run instance --id &lt;INSTANCE_ID&gt; --action stop
+</code></pre>
+<h3 id="move-jenkins--codepipeline-binaries-to-ec2"><a class="header" href="#move-jenkins--codepipeline-binaries-to-ec2">Move Jenkins + Codepipeline binaries to EC2</a></h3>
+<p>Complete the <a href="aws/./jenkins-pipeline.html">Jenkins + CodePipeline</a> tutorial to setup automated EC2 and S3 builds</p>
+<pre><code># List your S3 buckets, EC2 instances
+$ cargo run list --s3 --ec2
+
+# List S3 build artifacts
+$ cargo run bucket --name candle-cpu --action list
+# Will look something like candle-cpu/BuildArtif/7pKxpR0
+
+# Connect to EC2
+$ cargo run instance --id &lt;INSTANCE_ID&gt; --action start
+$ cargo run connect --id &lt;INSTANCE_ID&gt;
+
+# Copy S3 artifact bucket to EC2
+# Note: it is recommended to only have the latest build artifact in the bucket
+ubuntu@ip$ aws s3 sync s3://candle-cpu .
+
+# Unzip 
+ubuntu@ip$ mkdir my-binaries
+ubuntu@ip$ unzip candle-cpu/BuildArtif/7pKxpR0 ./my-binaries
+
+# Remove S3 tarball
+ubuntu@ip$ rm -r candle-cpu
+
+# Run models
+ubuntu@ip$ cd my-binaries
+ubuntu@ip$ ./falcon --prompt &quot;who invented the lightbulb&quot;
+
+# Exit the SSH
+ubuntu@ip$ exit
+
+# Stop your instance
+$ cargo run instance --id &lt;INSTANCE_ID&gt; --action stop
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="azure-builds"><a class="header" href="#azure-builds">Azure Builds</a></h1>
 <h2 id="requirements-2"><a class="header" href="#requirements-2">Requirements</a></h2>
 <ul>
@@ -541,7 +697,7 @@ cargo build --example falcon --features cuda,cudnn --release
 <li><a href="azure/./candle-VM.html">Azure VM + Github Action</a> Run the spot runner to build the binary and deploy the binary to Github release.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hello-candle-on-azure"><a class="header" href="#hello-candle-on-azure">Hello, Candle on Azure.</a></h1>
-<h2 id="prerequisites-2"><a class="header" href="#prerequisites-2">Prerequisites</a></h2>
+<h2 id="prerequisites-3"><a class="header" href="#prerequisites-3">Prerequisites</a></h2>
 <ul>
 <li>A <a href="https://github.com/join">Github Account</a></li>
 <li>An <a href="https://azure.microsoft.com/en-us/free">Azure Account</a></li>
@@ -625,7 +781,7 @@ $ az keyvault secret set --vault-name candel-vms --name &quot;GitHubPAT&quot; --
 <pre><code>az image list --resource-group githubVM --output table
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="using-github-action-to-build-candle-image-on-azure-spot-runner-vm"><a class="header" href="#using-github-action-to-build-candle-image-on-azure-spot-runner-vm">Using Github Action to build Candle image on Azure Spot Runner VM</a></h1>
-<h2 id="prerequisites-3"><a class="header" href="#prerequisites-3">Prerequisites</a></h2>
+<h2 id="prerequisites-4"><a class="header" href="#prerequisites-4">Prerequisites</a></h2>
 <ul>
 <li>A <a href="https://github.com/join">Github Account</a></li>
 <li>An <a href="https://azure.microsoft.com/en-us/free">Azure Account</a></li>

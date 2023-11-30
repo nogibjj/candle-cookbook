@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Azure spot runner setup - Candle Cookbook</title>
+        <title>AWS Candle CLI - Candle Cookbook</title>
 
 
         <!-- Custom HTML head -->
@@ -88,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../home.html"><strong aria-hidden="true">1.</strong> Candle Cookbook</a></li><li class="chapter-item expanded "><a href="../local/index.html"><strong aria-hidden="true">2.</strong> Local Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../local/hello-candle.html"><strong aria-hidden="true">2.1.</strong> Hello, Candle!</a></li></ol></li><li class="chapter-item expanded "><a href="../aws/index.html"><strong aria-hidden="true">3.</strong> AWS Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aws/hello-aws.html"><strong aria-hidden="true">3.1.</strong> Hello, Candle on AWS!</a></li><li class="chapter-item expanded "><a href="../aws/jenkins-pipeline.html"><strong aria-hidden="true">3.2.</strong> CodePipeline + Jenkins Build</a></li><li class="chapter-item expanded "><a href="../aws/aws-cli.html"><strong aria-hidden="true">3.3.</strong> AWS Candle CLI</a></li></ol></li><li class="chapter-item expanded "><a href="../azure/index.html"><strong aria-hidden="true">4.</strong> Azure Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../azure/hello-azure.html"><strong aria-hidden="true">4.1.</strong> Hello, Candle on Azure!</a></li><li class="chapter-item expanded "><a href="../azure/azure-spot-runner.html" class="active"><strong aria-hidden="true">4.2.</strong> Azure spot runner setup</a></li><li class="chapter-item expanded "><a href="../azure/candle-VM.html"><strong aria-hidden="true">4.3.</strong> Azure VM + Github Action</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../home.html"><strong aria-hidden="true">1.</strong> Candle Cookbook</a></li><li class="chapter-item expanded "><a href="../local/index.html"><strong aria-hidden="true">2.</strong> Local Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../local/hello-candle.html"><strong aria-hidden="true">2.1.</strong> Hello, Candle!</a></li></ol></li><li class="chapter-item expanded "><a href="../aws/index.html"><strong aria-hidden="true">3.</strong> AWS Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../aws/hello-aws.html"><strong aria-hidden="true">3.1.</strong> Hello, Candle on AWS!</a></li><li class="chapter-item expanded "><a href="../aws/jenkins-pipeline.html"><strong aria-hidden="true">3.2.</strong> CodePipeline + Jenkins Build</a></li><li class="chapter-item expanded "><a href="../aws/aws-cli.html" class="active"><strong aria-hidden="true">3.3.</strong> AWS Candle CLI</a></li></ol></li><li class="chapter-item expanded "><a href="../azure/index.html"><strong aria-hidden="true">4.</strong> Azure Builds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../azure/hello-azure.html"><strong aria-hidden="true">4.1.</strong> Hello, Candle on Azure!</a></li><li class="chapter-item expanded "><a href="../azure/azure-spot-runner.html"><strong aria-hidden="true">4.2.</strong> Azure spot runner setup</a></li><li class="chapter-item expanded "><a href="../azure/candle-VM.html"><strong aria-hidden="true">4.3.</strong> Azure VM + Github Action</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -173,76 +173,169 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="azure-spot-runner-with-github-action"><a class="header" href="#azure-spot-runner-with-github-action">Azure spot runner with Github Action.</a></h1>
-<p>Using Ephemeral Infrastructure with Azure VMS as GitHub Action Runners to build Candle binary latter.</p>
-<h2 id="requirements"><a class="header" href="#requirements">Requirements</a></h2>
+                        <h1 id="developer-workflows-using-the-candle-cli-for-aws"><a class="header" href="#developer-workflows-using-the-candle-cli-for-aws">Developer Workflows using the Candle CLI for AWS</a></h1>
+<p>The Candle CLI tool offers a simple interface to support Candle Cookbook development workflows seamlessly across AWS resources.</p>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
 <ul>
+<li>Complete the <a href="./hello-aws.html">Hello, Candle! on AWS</a> tutorial to setup your EC2 Instance, S3 Bucket and Candle-EC2 IAM User.</li>
+<li>Optional: Complete the <a href="./jenkins-pipeline.html">Jenkins + CodePipeline</a> tutorial to setup automated EC2 and S3 builds</li>
+<li>A <a href="https://github.com/join">Github Account</a></li>
+<li>An <a href="https://portal.aws.amazon.com/billing/signup">AWS Account</a></li>
+</ul>
+<h2 id="cli-setup"><a class="header" href="#cli-setup">CLI Setup</a></h2>
+<ol>
 <li>
-<p>Setup <a href="./hello-azure.html">Azure Account</a> and record the <code>subscription ID</code> you have from the setting. </p>
+<p>Download <a href="https://github.com/athletedecoded/aws-candle/tree/main">Candle CLI for AWS</a> by clicking the &quot;Download Latest&quot; README badge or the <a href="https://github.com/athletedecoded/aws-candle/releases">latest release</a> source code.</p>
 </li>
 <li>
-<p>Create a <a href="https://github.com/settings/tokens/new?description=Azure+GitHub+Runner&amp;scopes=repo">Personal Access Token (PAT)</a> record as <code>$GitHubPAT</code></p>
+<p>Per the <a href="https://github.com/athletedecoded/aws-candle/tree/main#setup">AWS Candle CLI Setup Instructions</a></p>
+<ul>
+<li>Create an AWS IAM User Policy &quot;Candle-Cli&quot; with <code>AmazonS3FullAccess</code> and <code>AmazonEC2FullAccess</code> permissions</li>
+<li>Create an access key for your &quot;Candle-Cli&quot; user</li>
+</ul>
 </li>
-</ul>
-<h3 id="create-an-service-principle-with-the-following-details"><a class="header" href="#create-an-service-principle-with-the-following-details">Create an service principle with the following details:</a></h3>
-<ul>
-<li>AppID </li>
-<li>password </li>
-<li>tenant information </li>
-</ul>
-<h4 id="create-an-service-principal-by-running"><a class="header" href="#create-an-service-principal-by-running">Create an service principal by running:</a></h4>
-<pre><code>$ az ad sp create-for-rbac -n &quot;Name_of_Service_principal&quot;
+<li>
+<p>Add a <code>.env</code> file and configure with AWS credentials and EC2 Key Pair</p>
+<pre><code># $touch .env
+AWS_ACCESS_KEY_ID=&lt;YOUR_ACCESS_KEY&gt;
+AWS_SECRET_ACCESS_KEY=&lt;YOUR_ACCESS_SECRET&gt;
+AWS_DEFAULT_REGION=&lt;YOUR_AWS_REGION&gt;
+EC2_KEY=PATH/TO/EC2_KEY_PAIR.pem
 </code></pre>
-<ul>
-<li>This output contains all the infomation about your <code>AZURE_CREDENTIALS</code>. Please copy &amp; save it to your local in order to set up VM after we setup the Spot Runner.</li>
-</ul>
-<p>The output includes credentials that you must protect. Be sure that you do not include these credentials in your code or check the credentials into your source control. For more information, see https://aka.ms/azadsp-cli</p>
-<h3 id="create-an-azure-resource-group"><a class="header" href="#create-an-azure-resource-group">Create an Azure Resource Group</a></h3>
-<p>A resource group is a way to group services together so that you can keep track of them and delete them later with ease. Use the <code>az</code> CLI to accomplish this:</p>
-<pre><code>az group create --location eastus --name &quot;&lt;RESOURCE_GROUP_NAME&gt;&quot;
-</code></pre>
-<p>Keep that resource group name handy for other operations. In this repository the <code>$&lt;RESOURCE_GROUP_NAME&gt;</code> resource group is used throughout. Note the location as well. Make sure that the location (region) maps to the resources you want to create.</p>
-<h3 id="create-an-azure-key-vault"><a class="header" href="#create-an-azure-key-vault">Create an Azure Key Vault</a></h3>
-<p>You will store your GitHub PAT here so that it can later be retrieved by the VM.</p>
-<pre><code>$ az keyvault create --name candel-vms --resource-group githubVM --location eastus
-$ az keyvault secret set --vault-name candel-vms --name &quot;GitHubPAT&quot; --value $GITHUB_PAT
-</code></pre>
-<p>Replace $GITHUB_PAT with the value of the PAT created earlier</p>
-<h3 id="assign-an-identity-with-permissions-for-key-vault"><a class="header" href="#assign-an-identity-with-permissions-for-key-vault">Assign an identity with permissions for Key Vault</a></h3>
-<p>Now that the key vault is created, you need to create an identity and then allow resources in the resource group to be able to access it. You must give this identity a name, in this case we use GitHubVMs. Note this name will be used in other steps.</p>
-<pre><code>$ az identity create --name GitHubVMs --resource-group githubVM --location eastus
+</li>
+</ol>
+<h2 id="using-the-candle-cli-to-connect-to-your-ec2-instance"><a class="header" href="#using-the-candle-cli-to-connect-to-your-ec2-instance">Using the Candle CLI to connect to your EC2 Instance</a></h2>
+<pre><code># List your EC2 instances
+$ cargo run list --ec2
 
+# Connect to EC2
+$ cargo run instance --id &lt;INSTANCE_ID&gt; --action start
+$ cargo run connect --id &lt;INSTANCE_ID&gt;
+
+# Check AWS CLI is installed on your EC2
+ubuntu@ip$ aws --version
+
+# If not: install AWS CLI
+ubuntu@ip$ curl &quot;https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip&quot; -o &quot;awscliv2.zip&quot;
+ubuntu@ip$ unzip awscliv2.zip
+ubuntu@ip$ sudo ./aws/install
+ubuntu@ip$ rm -r awscliv2.zip
+
+# Confirm install
+ubuntu@ip$ aws --version
 </code></pre>
-<p>Capture the Principal ID which will be used for the value for --object-id later. You can retrieve it again by using:</p>
-<pre><code>$ az identity show --name GitHubVMs --resource-group githubVM
+<h2 id="sample-workflows"><a class="header" href="#sample-workflows">Sample Workflows</a></h2>
+<ul>
+<li><a href="#run-prebuilt-binaries-on-ec2">Run Prebuilt Binaries on EC2</a></li>
+<li><a href="#build-binaries-on-ec2--s3-storage">Build Binaries on EC2 + S3 Storage</a></li>
+<li><a href="#move-jenkins--codepipeline-binaries-to-ec2">Move Jenkins + Codepipeline binaries to EC2</a></li>
+</ul>
+<h3 id="run-prebuilt-binaries-on-ec2"><a class="header" href="#run-prebuilt-binaries-on-ec2">Run Prebuilt Binaries on EC2</a></h3>
+<p>See available prebuilt binaries <a href="https://github.com/athletedecoded/cookbook-binaries/tree/main/binaries">here</a></p>
+<p>⚠️ IMPORTANT: Ensure you choose binaries compatible with your EC2 instance architecture</p>
+<pre><code># Connect to EC2
+$ cargo run instance --id &lt;INSTANCE_ID&gt; --action start
+$ cargo run connect --id &lt;INSTANCE_ID&gt;
+
+# Download binary
+ubuntu@ip$ wget -O mistral-cudnn https://github.com/athletedecoded/cookbook-binaries/raw/main/binaries/cudnn/mistral?download=
+
+# Set EC2 execution permissions
+ubuntu@ip$ chmod +x mistral-cudnn
+
+# Run binary
+ubuntu@ip$ ./mistral-cudnn --prompt &quot;who invented the lightbulb&quot;
+
+# Close SSH tunnel
+ubuntu@ip$ exit
+
+# Stop your EC2 instance to avoid charges
+$ cargo run instance --id &lt;INSTANCE_ID&gt; --action stop
 </code></pre>
-<p>Use the object id to set the policy, replace $OBJECT_ID with the one you found in the previous command:</p>
-<pre><code>$ az keyvault set-policy --name candel-vms --object-id &lt;$BOJECT_ID&gt; --secret-permissions get
+<h3 id="build-binaries-on-ec2--s3-storage"><a class="header" href="#build-binaries-on-ec2--s3-storage">Build Binaries on EC2 + S3 Storage</a></h3>
+<p>See available Candle models <a href="https://github.com/huggingface/candle/tree/main/candle-examples/examples">here</a></p>
+<pre><code># List your EC2 instances
+$ cargo run list --ec2
+
+# Connect to EC2
+$ cargo run instance --id &lt;INSTANCE_ID&gt; --action start
+$ cargo run connect --id &lt;INSTANCE_ID&gt;
+
+# If Candle repo is not on your EC2
+ubuntu@ip$ git clone https://github.com/huggingface/candle.git
+
+# Fetch latest candle repo
+ubuntu@ip$ cd candle
+ubuntu@ip$ git fetch upstream main
+
+# For CPU build (ex. quantized model)
+ubuntu@ip$ cargo build --example quantized --release
+
+# For CUDA + cuDNN build (ex. falcon model)
+ubuntu@ip$ cargo build --example falcon --features cuda,cudnn --release
+
+# Run models on EC2
+ubuntu@ip$ cd target/release/examples
+ubuntu@ip$ ./falcon --prompt &quot;who invented the lightbulb&quot;
+
+# Store models in existing S3 bucket &quot;my-candle-binaries&quot;
+ubuntu@ip$ aws s3 cp quantized s3://my-candle-binaries
+
+# Exit the SSH
+ubuntu@ip$ exit
+
+# Download binaries to run locally (assumes compatible local architecture)
+$ cargo run bucket --name my-candle-binaries --action list
+$ cargo run object --bucket my-candle-binaries --key falcon --action get
+$ ./falcon --prompt &quot;who invented the lightbulb&quot;
+
+# Stop your instance
+$ cargo run instance --id &lt;INSTANCE_ID&gt; --action stop
 </code></pre>
-<h3 id="verify-you-can-get-the-pat-with-the-following-command"><a class="header" href="#verify-you-can-get-the-pat-with-the-following-command">Verify you can get the PAT with the following command:</a></h3>
-<pre><code>az keyvault secret show --name &quot;GitHubPAT&quot; --vault-name candel-vms --query value -o tsv
-</code></pre>
-<h3 id="provide-a-role-to-vms"><a class="header" href="#provide-a-role-to-vms">Provide a role to VMs</a></h3>
-<p>Assign a role to the VMs so that they have enough permissions to write the image when getting created. Start by finding the principalId which will then be needed for the next step:</p>
-<pre><code>az identity show --name GitHubVMs --resource-group githubVM --query principalId
-</code></pre>
-<p>With the principalId you can assign it to the VMs now:</p>
-<pre><code>az role assignment create --assignee &lt;principal_ID&gt; --role Contributor --resource-group githubVM
-</code></pre>
-<h3 id="trigger-the-create-image-run"><a class="header" href="#trigger-the-create-image-run">Trigger the create image run</a></h3>
-<p>Now you are ready to create the image. Run it manually and make sure it works correctly. If succesful, an image will be created for you which you can query with the following command:</p>
-<pre><code>az image list --resource-group githubVM --output table
+<h3 id="move-jenkins--codepipeline-binaries-to-ec2"><a class="header" href="#move-jenkins--codepipeline-binaries-to-ec2">Move Jenkins + Codepipeline binaries to EC2</a></h3>
+<p>Complete the <a href="./jenkins-pipeline.html">Jenkins + CodePipeline</a> tutorial to setup automated EC2 and S3 builds</p>
+<pre><code># List your S3 buckets, EC2 instances
+$ cargo run list --s3 --ec2
+
+# List S3 build artifacts
+$ cargo run bucket --name candle-cpu --action list
+# Will look something like candle-cpu/BuildArtif/7pKxpR0
+
+# Connect to EC2
+$ cargo run instance --id &lt;INSTANCE_ID&gt; --action start
+$ cargo run connect --id &lt;INSTANCE_ID&gt;
+
+# Copy S3 artifact bucket to EC2
+# Note: it is recommended to only have the latest build artifact in the bucket
+ubuntu@ip$ aws s3 sync s3://candle-cpu .
+
+# Unzip 
+ubuntu@ip$ mkdir my-binaries
+ubuntu@ip$ unzip candle-cpu/BuildArtif/7pKxpR0 ./my-binaries
+
+# Remove S3 tarball
+ubuntu@ip$ rm -r candle-cpu
+
+# Run models
+ubuntu@ip$ cd my-binaries
+ubuntu@ip$ ./falcon --prompt &quot;who invented the lightbulb&quot;
+
+# Exit the SSH
+ubuntu@ip$ exit
+
+# Stop your instance
+$ cargo run instance --id &lt;INSTANCE_ID&gt; --action stop
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../azure/hello-azure.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../aws/jenkins-pipeline.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../azure/candle-VM.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../azure/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -252,11 +345,11 @@ $ az keyvault secret set --vault-name candel-vms --name &quot;GitHubPAT&quot; --
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../azure/hello-azure.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../aws/jenkins-pipeline.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../azure/candle-VM.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../azure/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
