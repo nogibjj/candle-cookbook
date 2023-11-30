@@ -10,6 +10,7 @@
 **Getting Started**
 
 - [Hello, Candle on AWS!](./hello-aws.md) ~ Hello, Candle! on AWS EC2 + S3
+- [AWS Candle CLI](./aws-cli.md) ~ Developer workflows using the Candle CLI for AWS
 
 **CI/CD Pipelines**
 

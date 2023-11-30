@@ -8,6 +8,7 @@
 - [AWS Builds](aws/index.md)
     - [Hello, Candle on AWS!](aws/hello-aws.md)
     - [CodePipeline + Jenkins Build](aws/jenkins-pipeline.md)
+    - [AWS Candle CLI](aws/aws-cli.md)
 
 - [Azure Builds](azure/index.md)
     - [Hello, Candle on Azure!](azure/hello-azure.md)
