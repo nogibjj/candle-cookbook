@@ -27,12 +27,21 @@ From AWS IAM Console >> Users >> Create User "Candle-EC2" >> Attach Policies Dir
 
 1. Install [Remote - SSH](https://code.visualstudio.com/docs/remote/ssh) from VSCode Extensions
 2. Add new SSH Connection
-3. From EC2 landing page >> Connect >> SSH client >> Copy commands to VSCode
+3. From EC2 landing page >> Connect >> SSH client 
+
   ```
   # NB: edit path to .pem file as needed
-  chmod 400 ~/.ssh/candle-key.pem
-  ssh -i "~/.ssh/candle-key.pem" ubuntu@ec2-##-##.us-east-1.compute.amazonaws.com
+  chmod 400 ~/.ssh/candle-key.pem 
+  (this permission command might not work in Windows/other non-Ubuntu systems, look up alternatives)
+
   ```
+  In VS Code, click the blue button on the top-left named "Open a remote window", and in the search box that pops up, click on "connect to host", followed by "New host", and then type in the below command:
+
+  ```
+  ssh -i "~/.ssh/candle-key.pem" "ubuntu@ec2-##-##.us-east-1.compute.amazonaws.com"
+  ```
+  The hashtags should be replaced with your public IPV4 DNS address, available at the bottom of your AWS instance page.
+ 
 4. Update .config file and validate format as follows
 
   ```
@@ -42,6 +51,7 @@ From AWS IAM Console >> Users >> Create User "Candle-EC2" >> Attach Policies Dir
     User ubuntu
   ```
 5. Confirm remote host platform (Linux) and fingerprint (Continue) 
+
 6. Launch terminal on remote host
 
 *Gotchas*
@@ -55,6 +65,7 @@ nvcc --version
 
 whereis cudnn.h
 ```
+(can skip this step if you're not running GPU instances)
 
 ## Install Rust via [rustup](https://rustup.rs/)
 
@@ -79,12 +90,13 @@ aws --version
 ## Configure Candle-EC2 IAM User
 
 1. IAM Console >> Users >> Candle-EC2 >> Security Credentials >> Create Access Key "EC2-CLI"
-2. From EC2 SSH terminal
+2. From EC2 SSH terminal, run the command "aws configure", and when prompted, type in the following:
 ```
-aws configure
-# Copy-Paste Candle-EC2 Access Key ID
-# Copy-Paste Candle-EC2 Secret Access Key
+
+# Candle-EC2 Access Key ID
+# Candle-EC2 Secret Access Key
 # Default region name: us-east-1
+# Skip the default output format
 ```
 
 ## Configure [Candle](https://github.com/huggingface/candle)
@@ -103,8 +115,23 @@ See all Candle example models [here](https://github.com/huggingface/candle/tree/
 # CPU build
 cargo build --example falcon --release
 
+```
+*Gotchas:*  
+
+If the build process is failing here because of the absence of a CC linker, the Ubuntu system you're trying the whole process on is missing a GCC package. To resolve this, run the following commands:
+
+```
+sudo apt update
+sudo apt install build-essential (or)
+
+sudo apt-get install pkg-config
+```
+Close the text box that is prompted, and continue ahead.
+
+
 # CUDA + cuDNN build
 cargo build --example falcon --features cuda,cudnn --release
+(skip this step if you're not running GPU instances)
 
 # Run binary
 cd target/release/examples
